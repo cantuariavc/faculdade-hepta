@@ -12,7 +12,7 @@ import model.Estudante;
 import model.Professor;
 
 public class ProfessorDAO {
-	
+
 	private Connection connection;
 
 	public ProfessorDAO(Connection connection) {
@@ -34,11 +34,11 @@ public class ProfessorDAO {
 			}
 		}
 	}
-	
+
 	public List<Professor> listar() throws SQLException {
 		List<Professor> professores = new ArrayList<Professor>();
 		String sql = "SELECT idProfessor, nomeCompleto FROM PROFESSOR";
-		
+
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.execute();
 
@@ -50,18 +50,27 @@ public class ProfessorDAO {
 				}
 			}
 		}
-		
+
 		return professores;
 	}
 
 	public void atualizar(Professor professor) throws SQLException {
 		String sql = "UPDATE PROFESSOR SET nomeCompleto='"+professor.getNomeCompleto()+"' "
-					+ "WHERE idProfessor='"+professor.getIdProfessor()+"'";
-		
+				+ "WHERE idProfessor='"+professor.getIdProfessor()+"'";
+
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.execute();
 		}
 
+	}
+
+
+	public void deletar(Professor professor) throws SQLException {
+		String sql = "DELETE FROM PROFESSOR WHERE idProfessor='"+professor.getIdProfessor()+"'";
+
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+		}
 	}
 	
 }
