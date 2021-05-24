@@ -4,7 +4,7 @@ USE faculdadeHepta;
 
 
 CREATE TABLE ESTUDANTE (
-    idEstudante INTEGER(2) NOT NULL,
+    idEstudante INTEGER(2) NOT NULL AUTO_INCREMENT,
     nomeCompleto VARCHAR(100) NOT NULL,
     
 	CONSTRAINT ESTUDANTE_PK
@@ -13,7 +13,7 @@ CREATE TABLE ESTUDANTE (
 
 
 CREATE TABLE PROFESSOR (
-    idProfessor INTEGER(2) NOT NULL,
+    idProfessor INTEGER(2) NOT NULL AUTO_INCREMENT,
     nomeCompleto VARCHAR(100) NOT NULL,
     
     CONSTRAINT PROFESSOR_PK
@@ -22,11 +22,11 @@ CREATE TABLE PROFESSOR (
 
 
 CREATE TABLE DISCIPLINA (
-    idDisciplina INTEGER(2) NOT NULL,
+    idDisciplina INTEGER(2) NOT NULL AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
-    ementaArquivo LONGBLOB NOT NULL,
-    ementaNomeArquivo VARCHAR(30) NOT NULL,
-    ementaTipoArquivo VARCHAR(10) NOT NULL,
+    ementaArquivo LONGBLOB,
+    ementaNomeArquivo VARCHAR(30),
+    ementaTipoArquivo VARCHAR(10),
     idProfessor INTEGER(2) NOT NULL,
     
     CONSTRAINT DISCIPLINA_PK
