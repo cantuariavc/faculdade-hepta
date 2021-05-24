@@ -10,13 +10,48 @@ public class Disciplina {
 	private String ementaTipoArquivo;
 	private Professor professor;
 	
-	public Disciplina(String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo) {
+	public Disciplina(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo, Professor professor) {
+		this.idDisciplina = idDisciplina;
+		this.nome = nome;
+		this.ementaArquivo = ementaArquivo;
+		this.ementaNomeArquivo = ementaNomeArquivo;
+		this.ementaTipoArquivo = ementaTipoArquivo;
+		this.professor = professor;
+	}
+	
+	public Disciplina(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo) {
+		this.idDisciplina = idDisciplina;
 		this.nome = nome;
 		this.ementaArquivo = ementaArquivo;
 		this.ementaNomeArquivo = ementaNomeArquivo;
 		this.ementaTipoArquivo = ementaTipoArquivo;
 	}
 
+	public Disciplina(String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo, Professor professor) {
+		this.nome = nome;
+		this.ementaArquivo = ementaArquivo;
+		this.ementaNomeArquivo = ementaNomeArquivo;
+		this.ementaTipoArquivo = ementaTipoArquivo;
+		this.professor = professor;
+	}
+	
+	public Disciplina(int idDisciplina, String nome, Professor professor) {
+		this.idDisciplina = idDisciplina;
+		this.nome = nome;
+		this.professor = professor;
+	}
+	
+	public Disciplina(int idDisciplina, String nome) {
+		this.idDisciplina = idDisciplina;
+		this.nome = nome;
+	}
+	
+	public Disciplina(String nome, Professor professor) {
+		this.nome = nome;
+		this.professor = professor;
+	}
+	
+	
 	public int getIdDisciplina() {
 		return idDisciplina;
 	}
