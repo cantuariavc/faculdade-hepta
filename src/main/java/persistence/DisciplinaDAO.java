@@ -74,4 +74,19 @@ public class DisciplinaDAO {
 		return disciplinas;
 	}
 	
+	public void atualizar(Disciplina disciplina) throws SQLException {
+		String sql = "UPDATE DISCIPLINA "
+					+ "SET nome='"+disciplina.getNome()+"', "
+					+ "ementaArquivo='"+disciplina.getEmentaArquivo()+"', "
+					+ "ementaNomeArquivo='"+disciplina.getEmentaNomeArquivo()+"', "
+					+ "ementaTipoArquivo='"+disciplina.getEmentaTipoArquivo()+"', "
+					+ "idProfessor='"+disciplina.getProfessor().getIdProfessor()+"' "
+					+ "WHERE idDisciplina='"+disciplina.getIdDisciplina()+"'";
+		
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+		}
+
+	}
+	
 }
