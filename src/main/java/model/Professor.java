@@ -4,6 +4,11 @@ public class Professor {
 	private int idProfessor;
 	private String nomeCompleto;
 	
+	public Professor(int idProfessor, String nomeCompleto) {
+		this.idProfessor = idProfessor;
+		this.nomeCompleto = nomeCompleto;
+	}
+	
 	public Professor(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}

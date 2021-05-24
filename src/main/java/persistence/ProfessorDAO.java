@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import model.Estudante;
 import model.Professor;
 
 public class ProfessorDAO {
@@ -16,7 +19,7 @@ public class ProfessorDAO {
 		this.connection = connection;
 	}
 
-	public void salvaProfessor(Professor professor) throws SQLException {
+	public void salvar(Professor professor) throws SQLException {
 		String sql = "INSERT INTO PROFESSOR(nomeCompleto) VALUES (?)";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -30,6 +33,25 @@ public class ProfessorDAO {
 				}
 			}
 		}
+	}
+	
+	public List<Professor> listar() throws SQLException {
+		List<Professor> professores = new ArrayList<Professor>();
+		String sql = "SELECT idProfessor, nomeCompleto FROM PROFESSOR";
+		
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+
+			try (ResultSet rst = pstm.getResultSet()) {
+				Professor professor;
+				while (rst.next()) {
+					professor = new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto"));
+					professores.add(professor);
+				}
+			}
+		}
+		
+		return professores;
 	}
 	
 }
