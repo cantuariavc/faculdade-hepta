@@ -53,5 +53,15 @@ public class ProfessorDAO {
 		
 		return professores;
 	}
+
+	public void atualizar(Professor professor) throws SQLException {
+		String sql = "UPDATE PROFESSOR SET nomeCompleto='"+professor.getNomeCompleto()+"' "
+					+ "WHERE idProfessor='"+professor.getIdProfessor()+"'";
+		
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+		}
+
+	}
 	
 }
