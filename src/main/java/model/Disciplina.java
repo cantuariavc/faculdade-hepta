@@ -8,6 +8,7 @@ public class Disciplina {
 	private byte[] ementaArquivo;
 	private String ementaNomeArquivo;
 	private String ementaTipoArquivo;
+	private Professor professor;
 	
 	public Disciplina(String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo) {
 		this.nome = nome;
@@ -55,11 +56,19 @@ public class Disciplina {
 	public void setEmentaTipoArquivo(String ementaTipoArquivo) {
 		this.ementaTipoArquivo = ementaTipoArquivo;
 	}
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 
 	@Override
 	public String toString() {
 		return "Disciplina [idDisciplina=" + idDisciplina + ", nome=" + nome + ", ementaArquivo="
 				+ Arrays.toString(ementaArquivo) + ", ementaNomeArquivo=" + ementaNomeArquivo + ", ementaTipoArquivo="
-				+ ementaTipoArquivo + "]";
+				+ ementaTipoArquivo + ", Professor=" + professor.getNomeCompleto() + "]";
 	}
 }
