@@ -53,4 +53,14 @@ public class EstudanteDAO {
 		return estudantes;
 	}
 	
+	public void atualizar(Estudante estudante) throws SQLException {
+		String sql = "UPDATE ESTUDANTE SET nomeCompleto='"+estudante.getNomeCompleto()+"' "
+					+ "WHERE idEstudante='"+estudante.getIdEstudante()+"'";
+		
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+		}
+
+	}
+	
 }
