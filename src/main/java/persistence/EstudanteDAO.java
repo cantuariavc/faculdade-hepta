@@ -60,7 +60,15 @@ public class EstudanteDAO {
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.execute();
 		}
-
 	}
+	
+	public void deletar(Estudante estudante) throws SQLException {
+		String sql = "DELETE FROM ESTUDANTE WHERE idEstudante='"+estudante.getIdEstudante()+"'";
+	
+	try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+		pstm.execute();
+	}
+
+} 
 	
 }
