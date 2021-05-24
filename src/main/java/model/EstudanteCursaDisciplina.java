@@ -1,10 +1,10 @@
 package model;
 
-public class CursaEstudanteDisciplina {
+public class EstudanteCursaDisciplina {
 	private Estudante estudante;
 	private Disciplina disciplina;
 	
-	public CursaEstudanteDisciplina(Estudante estudante, Disciplina disciplina) {
+	public EstudanteCursaDisciplina(Estudante estudante, Disciplina disciplina) {
 		this.estudante = estudante;
 		this.disciplina = disciplina;
 	}
