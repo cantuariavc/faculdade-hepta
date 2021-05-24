@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Estudante;
 
@@ -16,7 +18,7 @@ public class EstudanteDAO {
 		this.connection = connection;
 	}
 
-	public void salvaEstudante(Estudante estudante) throws SQLException {
+	public void salvar(Estudante estudante) throws SQLException {
 		String sql = "INSERT INTO ESTUDANTE(nomeCompleto) VALUES (?)";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -30,7 +32,25 @@ public class EstudanteDAO {
 				}
 			}
 		}
+	}
+	
+	public List<Estudante> listar() throws SQLException {
+		List<Estudante> estudantes = new ArrayList<Estudante>();
+		String sql = "SELECT idEstudante, nomeCompleto FROM ESTUDANTE";
+		
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
 
+			try (ResultSet rst = pstm.getResultSet()) {
+				Estudante estudante;
+				while (rst.next()) {
+					estudante = new Estudante(rst.getInt("idEstudante"), rst.getString("nomeCompleto"));
+					estudantes.add(estudante);
+				}
+			}
+		}
+		
+		return estudantes;
 	}
 	
 }

@@ -7,6 +7,11 @@ public class Estudante {
 	public Estudante(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
+	
+	public Estudante(int idEstudante, String nomeCompleto) {
+		this.idEstudante = idEstudante;
+		this.nomeCompleto = nomeCompleto;
+	}
 
 	public int getIdEstudante() {
 		return idEstudante;
