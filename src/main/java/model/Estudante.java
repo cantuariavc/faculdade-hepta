@@ -1,36 +1,35 @@
 package model;
 
+import dto.EstudanteDTO;
+
 public class Estudante {
-	private int idEstudante;
-	private String nomeCompleto;
-	
-	public Estudante(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
-	
-	public Estudante(int idEstudante, String nomeCompleto) {
-		this.idEstudante = idEstudante;
-		this.nomeCompleto = nomeCompleto;
-	}
+    private int idEstudante;
+    private String nomeCompleto;
 
-	public int getIdEstudante() {
-		return idEstudante;
-	}
+    public Estudante(int idEstudante, String nomeCompleto) {
+        this.idEstudante = idEstudante;
+        this.nomeCompleto = nomeCompleto;
+    }
 
-	public void setIdEstudante(int idEstudante) {
-		this.idEstudante = idEstudante;
-	}
+    public Estudante(EstudanteDTO estudanteDTO) {
+        this.idEstudante = estudanteDTO.getIdEstudante();
+        this.nomeCompleto = estudanteDTO.getNomeCompleto();
+    }
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
+    public int getIdEstudante() {
+        return idEstudante;
+    }
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
+    public void setIdEstudante(int idEstudante) {
+        this.idEstudante = idEstudante;
+    }
 
-	@Override
-	public String toString() {
-		return "Estudante [idEstudante=" + idEstudante + ", nomeCompleto=" + nomeCompleto + "]";
-	}
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
 }
