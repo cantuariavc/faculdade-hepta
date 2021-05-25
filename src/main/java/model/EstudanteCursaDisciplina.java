@@ -1,27 +1,34 @@
 package model;
 
+import dto.EstudanteCursaDisciplinaDTO;
+
 public class EstudanteCursaDisciplina {
-	private Estudante estudante;
-	private Disciplina disciplina;
-	
-	public EstudanteCursaDisciplina(Estudante estudante, Disciplina disciplina) {
-		this.estudante = estudante;
-		this.disciplina = disciplina;
-	}
+    private Estudante estudante;
+    private Disciplina disciplina;
 
-	public Estudante getEstudante() {
-		return estudante;
-	}
+    public EstudanteCursaDisciplina(Estudante estudante, Disciplina disciplina) {
+        this.estudante = estudante;
+        this.disciplina = disciplina;
+    }
+    
+    public EstudanteCursaDisciplina(EstudanteCursaDisciplinaDTO estudanteCursaDisciplinaDTO) {
+        this.estudante = new Estudante(estudanteCursaDisciplinaDTO.getEstudante());
+        this.disciplina = new Disciplina(estudanteCursaDisciplinaDTO.getDisciplina());
+    }
 
-	public void setEstudante(Estudante estudante) {
-		this.estudante = estudante;
-	}
+    public Estudante getEstudante() {
+        return estudante;
+    }
 
-	public Disciplina getDisciplina() {
-		return disciplina;
-	}
+    public void setEstudante(Estudante estudante) {
+        this.estudante = estudante;
+    }
 
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
 }
