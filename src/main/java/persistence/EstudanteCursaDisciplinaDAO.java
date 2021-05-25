@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.Disciplina;
 import model.Estudante;
+import model.EstudanteCursaDisciplina;
 import model.Professor;
 
 public class EstudanteCursaDisciplinaDAO {
@@ -81,6 +82,16 @@ public class EstudanteCursaDisciplinaDAO {
 		}
 		
 		return disciplinas;
+	}
+	
+	public void deletar(EstudanteCursaDisciplina estudanteCursaDisciplina) throws SQLException {
+		String sql = "DELETE FROM cursa "
+					+ "WHERE idEstudante = '"+estudanteCursaDisciplina.getEstudante().getIdEstudante()+"' "
+						+ "AND idDisciplina='"+estudanteCursaDisciplina.getDisciplina().getIdDisciplina()+"'";
+
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+		}
 	}
 	
 }
