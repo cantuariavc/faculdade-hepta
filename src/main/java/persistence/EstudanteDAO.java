@@ -62,8 +62,8 @@ public class EstudanteDAO {
 		}
 	}
 	
-	public void deletar(Estudante estudante) throws SQLException {
-		String sql = "DELETE FROM ESTUDANTE WHERE idEstudante='"+estudante.getIdEstudante()+"'";
+	public void deletar(int idEstudante) throws SQLException {
+		String sql = "DELETE FROM ESTUDANTE WHERE idEstudante='"+idEstudante+"'";
 	
 	try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 		pstm.execute();

@@ -89,8 +89,8 @@ public class DisciplinaDAO {
 
 	}
 	
-	public void deletar(Disciplina disciplina) throws SQLException {
-		String sql = "DELETE FROM DISCIPLINA WHERE idDisciplina='"+disciplina.getIdDisciplina()+"'";
+	public void deletar(int idDisciplina) throws SQLException {
+		String sql = "DELETE FROM DISCIPLINA WHERE idDisciplina='"+idDisciplina+"'";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.execute();

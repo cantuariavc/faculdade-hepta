@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Estudante;
 import model.Professor;
 
 public class ProfessorDAO {
@@ -65,8 +64,8 @@ public class ProfessorDAO {
 	}
 
 
-	public void deletar(Professor professor) throws SQLException {
-		String sql = "DELETE FROM PROFESSOR WHERE idProfessor='"+professor.getIdProfessor()+"'";
+	public void deletar(int idProfessor) throws SQLException {
+		String sql = "DELETE FROM PROFESSOR WHERE idProfessor='"+idProfessor+"'";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.execute();
