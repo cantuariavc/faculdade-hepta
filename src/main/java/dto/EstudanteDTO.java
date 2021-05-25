@@ -11,14 +11,15 @@ public class EstudanteDTO {
         this.nomeCompleto = nomeCompleto;
     }
     
+    public EstudanteDTO(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+    
     public EstudanteDTO(Estudante estudante) {
         this.idEstudante = estudante.getIdEstudante();
         this.nomeCompleto = estudante.getNomeCompleto();
     }
 
-    public EstudanteDTO(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
-    }
 
     public int getIdEstudante() {
         return idEstudante;

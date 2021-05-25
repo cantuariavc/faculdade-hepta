@@ -10,12 +10,17 @@ public class ProfessorDTO {
         this.idProfessor = idProfessor;
         this.nomeCompleto = nomeCompleto;
     }
+    
+    public ProfessorDTO(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
 
     public ProfessorDTO(Professor professor) {
         this.idProfessor = professor.getIdProfessor();
         this.nomeCompleto = professor.getNomeCompleto();
     }
 
+    
     public int getIdProfessor() {
         return idProfessor;
     }
