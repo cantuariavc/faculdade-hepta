@@ -4,10 +4,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-	public Connection recuperaConexao() throws SQLException {
-		return DriverManager.getConnection(
-				"jdbc:mysql://localhost/faculdadeHepta",
-				"root",
-				"root");
+    private static Connection connection;
+    
+	public static Connection getConnection() throws SQLException {
+		if (connection == null) {
+		    connection = DriverManager.getConnection(
+		            "jdbc:mysql://localhost/faculdadeHepta",
+	                "root",
+	                "root");
+		}
+	    
+	    return connection;
 	}
 }
