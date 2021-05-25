@@ -54,18 +54,14 @@ public class DisciplinaDAO {
 				Professor professor;
 				while (rst.next()) {
 					professor = new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto"));
-					if (rst.getBytes("ementaArquivo") != null) {
-						disciplina = new Disciplina(
-								rst.getInt("idDisciplina"), 
-								rst.getString("nome"), 
-								rst.getBytes("ementaArquivo"), 
-								rst.getString("ementaNomeArquivo"), 
-								rst.getString("ementaTipoArquivo"));
-					} else {						
-						disciplina = new Disciplina(rst.getInt("idDisciplina"), rst.getString("nome"));
-					}
+					disciplina = new Disciplina(
+							rst.getInt("idDisciplina"), 
+							rst.getString("nome"), 
+							rst.getBytes("ementaArquivo"), 
+							rst.getString("ementaNomeArquivo"), 
+							rst.getString("ementaTipoArquivo"),
+							professor);
 					
-					disciplina.setProfessor(professor);
 					disciplinas.add(disciplina);
 				}
 			}

@@ -9,7 +9,6 @@ import java.util.List;
 
 import model.Disciplina;
 import model.Estudante;
-import model.EstudanteCursaDisciplina;
 import model.Professor;
 
 public class EstudanteCursaDisciplinaDAO {
@@ -50,6 +49,38 @@ public class EstudanteCursaDisciplinaDAO {
 		}
 		
 		return estudantes;
+	}
+	
+	public List<Disciplina> listarDisciplinas(int idEstudante) throws SQLException {
+		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+		String sql = "SELECT d.idDisciplina, d.nome, d.ementaArquivo, d.ementaNomeArquivo, d.ementaTipoArquivo, p.idProfessor, p.nomeCompleto "
+					+ "FROM cursa c "
+					+ "INNER JOIN DISCIPLINA d ON d.idDisciplina = c.idDisciplina "
+					+ "INNER JOIN PROFESSOR p ON p.idProfessor = d.idProfessor "
+					+ "WHERE c.idEstudante = "+idEstudante+"";
+		
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+
+			try (ResultSet rst = pstm.getResultSet()) {
+				Disciplina disciplina;
+				Professor professor;
+				while (rst.next()) {
+					professor = new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto"));
+					disciplina = new Disciplina(
+							rst.getInt("idDisciplina"), 
+							rst.getString("nome"), 
+							rst.getBytes("ementaArquivo"), 
+							rst.getString("ementaNomeArquivo"), 
+							rst.getString("ementaTipoArquivo"),
+							professor);
+					
+					disciplinas.add(disciplina);
+				}
+			}
+		}
+		
+		return disciplinas;
 	}
 	
 }
