@@ -2,108 +2,88 @@ package model;
 
 import java.util.Arrays;
 
+import dto.DisciplinaDTO;
+
 public class Disciplina {
-	private int idDisciplina;
-	private String nome;
-	private byte[] ementaArquivo;
-	private String ementaNomeArquivo;
-	private String ementaTipoArquivo;
-	private Professor professor;
-	
-	public Disciplina(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo, Professor professor) {
-		this.idDisciplina = idDisciplina;
-		this.nome = nome;
-		this.ementaArquivo = ementaArquivo;
-		this.ementaNomeArquivo = ementaNomeArquivo;
-		this.ementaTipoArquivo = ementaTipoArquivo;
-		this.professor = professor;
-	}
-	
-	public Disciplina(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo) {
-		this.idDisciplina = idDisciplina;
-		this.nome = nome;
-		this.ementaArquivo = ementaArquivo;
-		this.ementaNomeArquivo = ementaNomeArquivo;
-		this.ementaTipoArquivo = ementaTipoArquivo;
-	}
+    private int idDisciplina;
+    private String nome;
+    private byte[] ementaArquivo;
+    private String ementaNomeArquivo;
+    private String ementaTipoArquivo;
+    private Professor professor;
 
-	public Disciplina(String nome, byte[] ementaArquivo, String ementaNomeArquivo, String ementaTipoArquivo, Professor professor) {
-		this.nome = nome;
-		this.ementaArquivo = ementaArquivo;
-		this.ementaNomeArquivo = ementaNomeArquivo;
-		this.ementaTipoArquivo = ementaTipoArquivo;
-		this.professor = professor;
-	}
-	
-	public Disciplina(int idDisciplina, String nome, Professor professor) {
-		this.idDisciplina = idDisciplina;
-		this.nome = nome;
-		this.professor = professor;
-	}
-	
-	public Disciplina(int idDisciplina, String nome) {
-		this.idDisciplina = idDisciplina;
-		this.nome = nome;
-	}
-	
-	public Disciplina(String nome, Professor professor) {
-		this.nome = nome;
-		this.professor = professor;
-	}
-	
-	
-	public int getIdDisciplina() {
-		return idDisciplina;
-	}
+    public Disciplina(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo,
+            String ementaTipoArquivo, Professor professor) {
+        this.idDisciplina = idDisciplina;
+        this.nome = nome;
+        this.ementaArquivo = ementaArquivo;
+        this.ementaNomeArquivo = ementaNomeArquivo;
+        this.ementaTipoArquivo = ementaTipoArquivo;
+        this.professor = professor;
+    }
 
-	public void setIdDisciplina(int idDisciplina) {
-		this.idDisciplina = idDisciplina;
-	}
+    public Disciplina(DisciplinaDTO disciplinaDTO) {
+        this.idDisciplina = disciplinaDTO.getIdDisciplina();
+        this.nome = disciplinaDTO.getNome();
+        this.ementaArquivo = disciplinaDTO.getEmentaArquivo();
+        this.ementaNomeArquivo = disciplinaDTO.getEmentaNomeArquivo();
+        this.ementaTipoArquivo = disciplinaDTO.getEmentaTipoArquivo();
+        this.professor = new Professor(disciplinaDTO.getProfessorDTO());
+    }
 
-	public String getNome() {
-		return nome;
-	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public int getIdDisciplina() {
+        return idDisciplina;
+    }
 
-	public byte[] getEmentaArquivo() {
-		return ementaArquivo;
-	}
+    public void setIdDisciplina(int idDisciplina) {
+        this.idDisciplina = idDisciplina;
+    }
 
-	public void setEmentaArquivo(byte[] ementaArquivo) {
-		this.ementaArquivo = ementaArquivo;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getEmentaNomeArquivo() {
-		return ementaNomeArquivo;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setEmentaNomeArquivo(String ementaNomeArquivo) {
-		this.ementaNomeArquivo = ementaNomeArquivo;
-	}
+    public byte[] getEmentaArquivo() {
+        return ementaArquivo;
+    }
 
-	public String getEmentaTipoArquivo() {
-		return ementaTipoArquivo;
-	}
+    public void setEmentaArquivo(byte[] ementaArquivo) {
+        this.ementaArquivo = ementaArquivo;
+    }
 
-	public void setEmentaTipoArquivo(String ementaTipoArquivo) {
-		this.ementaTipoArquivo = ementaTipoArquivo;
-	}
-	
-	public Professor getProfessor() {
-		return professor;
-	}
+    public String getEmentaNomeArquivo() {
+        return ementaNomeArquivo;
+    }
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
+    public void setEmentaNomeArquivo(String ementaNomeArquivo) {
+        this.ementaNomeArquivo = ementaNomeArquivo;
+    }
 
-	@Override
-	public String toString() {
-		return "Disciplina [idDisciplina=" + idDisciplina + ", nome=" + nome + ", ementaArquivo="
-				+ Arrays.toString(ementaArquivo) + ", ementaNomeArquivo=" + ementaNomeArquivo + ", ementaTipoArquivo="
-				+ ementaTipoArquivo + ", Professor=" + professor.getNomeCompleto() + "]";
-	}
+    public String getEmentaTipoArquivo() {
+        return ementaTipoArquivo;
+    }
+
+    public void setEmentaTipoArquivo(String ementaTipoArquivo) {
+        this.ementaTipoArquivo = ementaTipoArquivo;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    @Override
+    public String toString() {
+        return "Disciplina [idDisciplina=" + idDisciplina + ", nome=" + nome + ", ementaArquivo="
+                + Arrays.toString(ementaArquivo) + ", ementaNomeArquivo=" + ementaNomeArquivo + ", ementaTipoArquivo="
+                + ementaTipoArquivo + ", Professor=" + professor.getNomeCompleto() + "]";
+    }
 }
