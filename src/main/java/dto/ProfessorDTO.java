@@ -1,20 +1,19 @@
-package model;
+package dto;
 
-import dto.ProfessorDTO;
+import model.Professor;
 
-public class Professor {
+public class ProfessorDTO {
     private int idProfessor;
     private String nomeCompleto;
-    
-    public Professor(int idProfessor, String nomeCompleto) {
-        super();
+
+    public ProfessorDTO(int idProfessor, String nomeCompleto) {
         this.idProfessor = idProfessor;
         this.nomeCompleto = nomeCompleto;
     }
 
-    public Professor(ProfessorDTO professorDTO) {
-        this.idProfessor = professorDTO.getIdProfessor();
-        this.nomeCompleto = professorDTO.getNomeCompleto();
+    public ProfessorDTO(Professor professor) {
+        this.idProfessor = professor.getIdProfessor();
+        this.nomeCompleto = professor.getNomeCompleto();
     }
 
     public int getIdProfessor() {
@@ -35,6 +34,6 @@ public class Professor {
 
     @Override
     public String toString() {
-        return "Professor [idProfessor=" + idProfessor + ", nomeCompleto=" + nomeCompleto + "]";
+        return "ProfessorDTO [idProfessor=" + idProfessor + ", nomeCompleto=" + nomeCompleto + "]";
     }
 }
