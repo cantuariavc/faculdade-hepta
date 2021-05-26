@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dto.ProfessorDTO;
@@ -16,7 +15,7 @@ import dto.ProfessorDTO;
 class ProfessorDAOTest {
 
     private static List<ProfessorDTO> professoresDTO = new ArrayList<ProfessorDTO>();
-    private static ProfessorDAO professorDAO;
+    private static ProfessorDAO professorDAO = new ProfessorDAO();
     private static ProfessorDTO professorDTO;
     
     
@@ -31,11 +30,6 @@ class ProfessorDAOTest {
         for (ProfessorDTO professorDTO : professoresDTO) {
             professorDAO.deletar(professorDTO.getIdProfessor());
         }
-    }
-
-    @BeforeEach
-    void setUp() throws Exception {
-        professorDAO = new ProfessorDAO();
     }
 
     
