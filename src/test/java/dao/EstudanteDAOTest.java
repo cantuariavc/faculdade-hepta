@@ -2,7 +2,6 @@ package dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,23 +17,28 @@ class EstudanteDAOTest {
     private static EstudanteDAO estudanteDAO = new EstudanteDAO();
     private static EstudanteDTO estudanteDTO;
 
-    
     @BeforeAll
-    static void setUpBeforeClass() throws Exception {
-        estudantesDTO.add(new EstudanteDTO("Elvis Presley"));
-        estudantesDTO.add(new EstudanteDTO("Frank Sinatra"));
+    static void setUpBeforeClass() {
+        try {
+            estudantesDTO.add(new EstudanteDTO("Elvis Presley"));
+            estudantesDTO.add(new EstudanteDTO("Frank Sinatra"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @AfterAll
-    static void tearDownAfterClass() throws Exception {
-        for (EstudanteDTO estudanteDTO : estudantesDTO) {
-            estudanteDAO.deletar(estudanteDTO.getIdEstudante());
+    static void tearDownAfterClass() {
+        try {
+            for (EstudanteDTO estudanteDTO : estudantesDTO)
+                estudanteDAO.deletar(estudanteDTO.getIdEstudante());
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
-    
-    
+
     @Test
-    void testSalvar() throws SQLException {   
+    void testSalvar() {
         for (EstudanteDTO eDTO : estudantesDTO) {
             estudanteDTO = estudanteDAO.salvar(eDTO);
             assertNotNull(estudanteDTO.getIdEstudante());
@@ -43,7 +47,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testListar() throws SQLException {
+    void testListar() {
         List<EstudanteDTO> estudantesDTOBD = estudanteDAO.listar();
 
         for (EstudanteDTO estudanteDTO : estudantesDTOBD) {
@@ -53,32 +57,28 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testAtualizar() throws SQLException {
+    void testAtualizar() {
         estudanteDTO = estudantesDTO.get(0);
-        int idEstudante = estudanteDTO.getIdEstudante(); 
+        int idEstudante = estudanteDTO.getIdEstudante();
         String nomeCompleto = estudanteDTO.getNomeCompleto();
 
         estudanteDTO.setNomeCompleto("Roberto Carlos");
         estudanteDAO.atualizar(estudanteDTO);
 
-        for (EstudanteDTO estudanteDTO : estudantesDTO) {
+        for (EstudanteDTO estudanteDTO : estudantesDTO)
             if (estudanteDTO.getIdEstudante() == idEstudante)
                 assertFalse(estudanteDTO.getNomeCompleto().equals(nomeCompleto));
-        }
     }
 
     @Test
-    void testDeletar() throws SQLException {
-        for (EstudanteDTO estudanteDTO : estudantesDTO) {
+    void testDeletar() {
+        for (EstudanteDTO estudanteDTO : estudantesDTO)
             estudanteDAO.deletar(estudanteDTO.getIdEstudante());
-        }
 
         List<EstudanteDTO> estudantesDTOBD = estudanteDAO.listar();
-        for (EstudanteDTO estudanteDTO : estudantesDTO) {
-            for (EstudanteDTO estudanteDTOBD : estudantesDTOBD) {
+        for (EstudanteDTO estudanteDTO : estudantesDTO)
+            for (EstudanteDTO estudanteDTOBD : estudantesDTOBD)
                 assertFalse(estudanteDTOBD.getIdEstudante() == estudanteDTO.getIdEstudante());
-            }
-        }
     }
 
 }
