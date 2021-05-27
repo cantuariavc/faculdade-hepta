@@ -22,26 +22,34 @@ class DisciplinaDAOTest {
     private static ProfessorDAO professorDAO = new ProfessorDAO();
 
     @BeforeAll
-    static void setUpBeforeClass() throws Exception {
-        ProfessorDTO professor1 = professorDAO.salvar(new ProfessorDTO("Albert Einstein"));
-        listaProfessorDTO.add(professor1);
-        ProfessorDTO professor2 = professorDAO.salvar(new ProfessorDTO("Isaac Newton"));
-        listaProfessorDTO.add(professor2);
-        
-        listaDisciplinaDTO.add(new DisciplinaDTO("EDA2", null, null, null, professor1));
-        listaDisciplinaDTO.add(new DisciplinaDTO("SBD2", null, null, null, professor2));
+    static void setUpBeforeClass() {
+        try {
+            ProfessorDTO professor1 = professorDAO.salvar(new ProfessorDTO("Albert Einstein"));
+            listaProfessorDTO.add(professor1);
+            ProfessorDTO professor2 = professorDAO.salvar(new ProfessorDTO("Isaac Newton"));
+            listaProfessorDTO.add(professor2);
+
+            listaDisciplinaDTO.add(new DisciplinaDTO("EDA2", null, null, null, professor1));
+            listaDisciplinaDTO.add(new DisciplinaDTO("SBD2", null, null, null, professor2));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @AfterAll
-    static void tearDownAfterClass() throws Exception {
-        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
-            disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
-            professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
+    static void tearDownAfterClass() {
+        try {
+            for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
+                disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
+                professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     @Test
-    void testSalvar() throws SQLException {        
+    void testSalvar() {
         for (DisciplinaDTO dDTO : listaDisciplinaDTO) {
             disciplinaDTO = disciplinaDAO.salvar(dDTO);
             assertNotNull(disciplinaDTO.getIdDisciplina());
@@ -50,7 +58,7 @@ class DisciplinaDAOTest {
     }
 
     @Test
-    void testListar() throws SQLException {
+    void testListar() {
         List<DisciplinaDTO> disciplinasDTOBD = disciplinaDAO.listar();
 
         for (DisciplinaDTO disciplinaDTO : disciplinasDTOBD) {
@@ -60,31 +68,28 @@ class DisciplinaDAOTest {
     }
 
     @Test
-    void testAtualizar() throws SQLException {
+    void testAtualizar() {
         disciplinaDTO = listaDisciplinaDTO.get(0);
-        int idDisciplina = disciplinaDTO.getIdDisciplina(); 
+        int idDisciplina = disciplinaDTO.getIdDisciplina();
         String nome = disciplinaDTO.getNome();
 
         disciplinaDTO.setNome("EPS");
         disciplinaDAO.atualizar(disciplinaDTO);
 
-        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO)
             if (disciplinaDTO.getIdDisciplina() == idDisciplina)
                 assertFalse(disciplinaDTO.getNome().equals(nome));
-        }
     }
 
     @Test
-    void testDeletar() throws SQLException {
+    void testDeletar() {
         for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO)
             disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
 
         List<DisciplinaDTO> disciplinasDTOBD = disciplinaDAO.listar();
-        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
-            for (DisciplinaDTO disciplinaDTOBD : disciplinasDTOBD) {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO)
+            for (DisciplinaDTO disciplinaDTOBD : disciplinasDTOBD)
                 assertFalse(disciplinaDTOBD.getIdDisciplina() == disciplinaDTO.getIdDisciplina());
-            }
-        }
     }
 
 }
