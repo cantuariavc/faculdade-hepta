@@ -15,7 +15,8 @@ import dto.ProfessorDTO;
 
 class DisciplinaDAOTest {
 
-    private static List<DisciplinaDTO> disciplinasDTO = new ArrayList<DisciplinaDTO>();
+    private static List<DisciplinaDTO> listaDisciplinaDTO = new ArrayList<DisciplinaDTO>();
+    private static List<ProfessorDTO> listaProfessorDTO = new ArrayList<ProfessorDTO>();
     private static DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     private static DisciplinaDTO disciplinaDTO;
     private static ProfessorDAO professorDAO = new ProfessorDAO();
@@ -23,15 +24,17 @@ class DisciplinaDAOTest {
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
         ProfessorDTO professor1 = professorDAO.salvar(new ProfessorDTO("Albert Einstein"));
+        listaProfessorDTO.add(professor1);
         ProfessorDTO professor2 = professorDAO.salvar(new ProfessorDTO("Isaac Newton"));
+        listaProfessorDTO.add(professor2);
         
-        disciplinasDTO.add(new DisciplinaDTO("EDA2", null, null, null, professor1));
-        disciplinasDTO.add(new DisciplinaDTO("SBD2", null, null, null, professor2));
+        listaDisciplinaDTO.add(new DisciplinaDTO("EDA2", null, null, null, professor1));
+        listaDisciplinaDTO.add(new DisciplinaDTO("SBD2", null, null, null, professor2));
     }
 
     @AfterAll
     static void tearDownAfterClass() throws Exception {
-        for (DisciplinaDTO disciplinaDTO : disciplinasDTO) {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
             disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
             professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
         }
@@ -39,7 +42,7 @@ class DisciplinaDAOTest {
 
     @Test
     void testSalvar() throws SQLException {        
-        for (DisciplinaDTO dDTO : disciplinasDTO) {
+        for (DisciplinaDTO dDTO : listaDisciplinaDTO) {
             disciplinaDTO = disciplinaDAO.salvar(dDTO);
             assertNotNull(disciplinaDTO.getIdDisciplina());
             dDTO.setIdDisciplina(disciplinaDTO.getIdDisciplina());
@@ -58,14 +61,14 @@ class DisciplinaDAOTest {
 
     @Test
     void testAtualizar() throws SQLException {
-        disciplinaDTO = disciplinasDTO.get(0);
+        disciplinaDTO = listaDisciplinaDTO.get(0);
         int idDisciplina = disciplinaDTO.getIdDisciplina(); 
         String nome = disciplinaDTO.getNome();
 
         disciplinaDTO.setNome("EPS");
         disciplinaDAO.atualizar(disciplinaDTO);
 
-        for (DisciplinaDTO disciplinaDTO : disciplinasDTO) {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
             if (disciplinaDTO.getIdDisciplina() == idDisciplina)
                 assertFalse(disciplinaDTO.getNome().equals(nome));
         }
@@ -73,12 +76,11 @@ class DisciplinaDAOTest {
 
     @Test
     void testDeletar() throws SQLException {
-        for (DisciplinaDTO disciplinaDTO : disciplinasDTO) {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO)
             disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
-        }
 
         List<DisciplinaDTO> disciplinasDTOBD = disciplinaDAO.listar();
-        for (DisciplinaDTO disciplinaDTO : disciplinasDTO) {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
             for (DisciplinaDTO disciplinaDTOBD : disciplinasDTOBD) {
                 assertFalse(disciplinaDTOBD.getIdDisciplina() == disciplinaDTO.getIdDisciplina());
             }
