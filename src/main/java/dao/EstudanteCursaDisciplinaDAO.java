@@ -18,19 +18,21 @@ import util.ConnectionFactory;
 
 public class EstudanteCursaDisciplinaDAO {
 
-    public void salvaEstudanteCursaDisciplina(EstudanteCursaDisciplinaDTO estudanteCursaDisciplinaDTO) throws SQLException {
-        EstudanteCursaDisciplina estudanteCursaDisciplina = new EstudanteCursaDisciplina(estudanteCursaDisciplinaDTO);
+    public EstudanteCursaDisciplinaDTO salvaEstudanteCursaDisciplina(EstudanteCursaDisciplinaDTO cursaDTO) throws SQLException {
+        EstudanteCursaDisciplina cursa = new EstudanteCursaDisciplina(cursaDTO);
 
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "INSERT INTO cursa(idEstudante, idDisciplina) VALUES (?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1, estudanteCursaDisciplina.getEstudante().getIdEstudante());
-                pstm.setInt(2, estudanteCursaDisciplina.getDisciplina().getIdDisciplina());
+                pstm.setInt(1, cursa.getEstudante().getIdEstudante());
+                pstm.setInt(2, cursa.getDisciplina().getIdDisciplina());
 
                 pstm.execute();
             }
         }
+        
+        return new EstudanteCursaDisciplinaDTO(cursa);
     }
 
     public List<EstudanteDTO> listarEstudantes(int idDisciplina) throws SQLException {
