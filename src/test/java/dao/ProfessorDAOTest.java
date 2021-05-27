@@ -2,7 +2,6 @@ package dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,28 +13,33 @@ import dto.ProfessorDTO;
 
 class ProfessorDAOTest {
 
-    private static List<ProfessorDTO> professoresDTO = new ArrayList<ProfessorDTO>();
+    private static List<ProfessorDTO> listaProfessorDTO = new ArrayList<ProfessorDTO>();
     private static ProfessorDAO professorDAO = new ProfessorDAO();
     private static ProfessorDTO professorDTO;
-    
-    
-    @BeforeAll
-    static void setUpBeforeClass() throws Exception {
-        professoresDTO.add(new ProfessorDTO("Albert Einstein"));
-        professoresDTO.add(new ProfessorDTO("Isaac Newton"));
-    }
 
-    @AfterAll
-    static void tearDownAfterClass() throws Exception {
-        for (ProfessorDTO professorDTO : professoresDTO) {
-            professorDAO.deletar(professorDTO.getIdProfessor());
+    @BeforeAll
+    static void setUpBeforeClass() {
+        try {
+            listaProfessorDTO.add(new ProfessorDTO("Albert Einstein"));
+            listaProfessorDTO.add(new ProfessorDTO("Isaac Newton"));
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
-    
+    @AfterAll
+    static void tearDownAfterClass() {
+        try {
+            for (ProfessorDTO professorDTO : listaProfessorDTO)
+                professorDAO.deletar(professorDTO.getIdProfessor());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     @Test
-    void testSalvar() throws SQLException {
-        for (ProfessorDTO pDTO : professoresDTO) {
+    void testSalvar() {
+        for (ProfessorDTO pDTO : listaProfessorDTO) {
             professorDTO = professorDAO.salvar(pDTO);
             assertNotNull(professorDTO.getIdProfessor());
             pDTO.setIdProfessor(professorDTO.getIdProfessor());
@@ -43,7 +47,7 @@ class ProfessorDAOTest {
     }
 
     @Test
-    void testListar() throws SQLException {
+    void testListar() {
         List<ProfessorDTO> professoresDTOBD = professorDAO.listar();
 
         for (ProfessorDTO professorDTO : professoresDTOBD) {
@@ -53,32 +57,28 @@ class ProfessorDAOTest {
     }
 
     @Test
-    void testAtualizar() throws SQLException {
-        professorDTO = professoresDTO.get(0);
-        int idProfessor = professorDTO.getIdProfessor(); 
+    void testAtualizar() {
+        professorDTO = listaProfessorDTO.get(0);
+        int idProfessor = professorDTO.getIdProfessor();
         String nomeCompleto = professorDTO.getNomeCompleto();
 
         professorDTO.setNomeCompleto("Roberto Carlos");
         professorDAO.atualizar(professorDTO);
 
-        for (ProfessorDTO professorDTO : professoresDTO) {
+        for (ProfessorDTO professorDTO : listaProfessorDTO)
             if (professorDTO.getIdProfessor() == idProfessor)
                 assertFalse(professorDTO.getNomeCompleto().equals(nomeCompleto));
-        }
     }
 
     @Test
-    void testDeletar() throws SQLException {
-        for (ProfessorDTO professorDTO : professoresDTO) {
+    void testDeletar() {
+        for (ProfessorDTO professorDTO : listaProfessorDTO)
             professorDAO.deletar(professorDTO.getIdProfessor());
-        }
 
         List<ProfessorDTO> professoresDTOBD = professorDAO.listar();
-        for (ProfessorDTO professorDTO : professoresDTO) {
-            for (ProfessorDTO professorDTOBD : professoresDTOBD) {
+        for (ProfessorDTO professorDTO : listaProfessorDTO)
+            for (ProfessorDTO professorDTOBD : professoresDTOBD)
                 assertFalse(professorDTOBD.getIdProfessor() == professorDTO.getIdProfessor());
-            }
-        }
     }
 
 }
