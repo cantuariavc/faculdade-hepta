@@ -4,14 +4,4 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>Faculdade-Hepta</display-name>
-	<servlet>
-		<servlet-name>Jersey Servlet</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-
 </web-app>

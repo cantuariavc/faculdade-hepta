@@ -1,5 +1,8 @@
 package service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,7 +16,9 @@ public class DisciplinaService {
         disciplinaDAO = new DisciplinaDAO();
     }
 
-    public DisciplinaDTO salvar(DisciplinaDTO disciplinaDTO) throws ClassNotFoundException, SQLException {
+    public DisciplinaDTO salvar(DisciplinaDTO disciplinaDTO, File arquivo) throws ClassNotFoundException, SQLException, IOException {
+        disciplinaDTO.setPlanoEnsinoArquivo(Files.readAllBytes(arquivo.toPath()));
+        
         return disciplinaDAO.salvar(disciplinaDTO);
     }
 
@@ -21,7 +26,9 @@ public class DisciplinaService {
         return disciplinaDAO.listar();
     }
 
-    public void atualizar(DisciplinaDTO disciplinaDTO) throws ClassNotFoundException, SQLException {
+    public void atualizar(DisciplinaDTO disciplinaDTO, File arquivo) throws ClassNotFoundException, SQLException, IOException {
+        disciplinaDTO.setPlanoEnsinoArquivo(Files.readAllBytes(arquivo.toPath()));
+
         disciplinaDAO.atualizar(disciplinaDTO);
     }
 

@@ -1,5 +1,6 @@
 package rest;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import dto.DisciplinaDTO;
 import service.DisciplinaService;
@@ -49,12 +53,18 @@ public class DisciplinaRest {
     }
 
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     @POST
-    public Response salvar(DisciplinaDTO disciplinaDTO) {
+    public Response salvar(@FormDataParam("disciplina") FormDataBodyPart disciplinaForm, @FormDataParam("arquivo") File arquivo) {
+        DisciplinaDTO disciplinaDTO;
+        
+        System.out.println("teste");
         try {
-            disciplinaDTO = disciplinaService.salvar(disciplinaDTO);
+            
+            disciplinaForm.setMediaType(MediaType.APPLICATION_JSON_TYPE);
+            disciplinaDTO = disciplinaForm.getValueAs(DisciplinaDTO.class);
+            disciplinaService.salvar(disciplinaDTO, arquivo);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_criar_disciplina").build();
@@ -64,12 +74,16 @@ public class DisciplinaRest {
     }
 
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     @PUT
-    public Response atualizar(DisciplinaDTO disciplinaDTO) {
+    public Response atualizar(@FormDataParam("disciplina") FormDataBodyPart disciplinaForm, @FormDataParam("arquivo") File arquivo) {
+        DisciplinaDTO disciplinaDTO;
+        
         try {
-            disciplinaService.atualizar(disciplinaDTO);
+            disciplinaForm.setMediaType(MediaType.APPLICATION_JSON_TYPE);
+            disciplinaDTO = disciplinaForm.getValueAs(DisciplinaDTO.class);
+            disciplinaService.atualizar(disciplinaDTO, arquivo);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_atualizar_disciplina").build();
