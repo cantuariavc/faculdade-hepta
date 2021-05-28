@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
@@ -63,8 +64,23 @@ public class EstudanteRest {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_criar_estudante").build();
         }
-        
+
         return Response.status(Status.OK).entity(estudanteDTO).build();
+    }
+
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @PUT
+    public Response atualizar(EstudanteDTO estudanteDTO) {
+        try {
+            estudanteService.atualizar(estudanteDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_atualizar_estudante").build();
+        }
+
+        return Response.status(Status.OK).build();
     }
 
 }
