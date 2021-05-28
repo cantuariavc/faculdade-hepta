@@ -2,6 +2,7 @@ package dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ class ProfessorDAOTest {
     }
 
     @Test
-    void testSalvar() {
+    void testSalvar() throws ClassNotFoundException, SQLException {
         for (ProfessorDTO pDTO : listaProfessorDTO) {
             professorDTO = professorDAO.salvar(pDTO);
             assertNotNull(professorDTO.getIdProfessor());
@@ -47,7 +48,7 @@ class ProfessorDAOTest {
     }
 
     @Test
-    void testListar() {
+    void testListar() throws ClassNotFoundException, SQLException {
         List<ProfessorDTO> professoresDTOBD = professorDAO.listar();
 
         for (ProfessorDTO professorDTO : professoresDTOBD) {
@@ -57,7 +58,7 @@ class ProfessorDAOTest {
     }
 
     @Test
-    void testAtualizar() {
+    void testAtualizar() throws ClassNotFoundException, SQLException {
         professorDTO = listaProfessorDTO.get(0);
         int idProfessor = professorDTO.getIdProfessor();
         String nomeCompleto = professorDTO.getNomeCompleto();
@@ -71,7 +72,7 @@ class ProfessorDAOTest {
     }
 
     @Test
-    void testDeletar() {
+    void testDeletar() throws ClassNotFoundException, SQLException {
         for (ProfessorDTO professorDTO : listaProfessorDTO)
             professorDAO.deletar(professorDTO.getIdProfessor());
 

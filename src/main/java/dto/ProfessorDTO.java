@@ -5,6 +5,9 @@ import model.Professor;
 public class ProfessorDTO {
     private int idProfessor;
     private String nomeCompleto;
+    
+    public ProfessorDTO() {
+    }
 
     public ProfessorDTO(int idProfessor, String nomeCompleto) {
         this.idProfessor = idProfessor;

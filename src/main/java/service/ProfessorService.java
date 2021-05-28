@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.ProfessorDAO;
@@ -13,19 +14,19 @@ public class ProfessorService {
         professorDAO = new ProfessorDAO();
     }
 
-    public ProfessorDTO salvar(ProfessorDTO professorDTO) {
+    public ProfessorDTO salvar(ProfessorDTO professorDTO) throws ClassNotFoundException, SQLException {
         return professorDAO.salvar(professorDTO);
     }
 
-    public List<ProfessorDTO> listar() {
+    public List<ProfessorDTO> listar() throws ClassNotFoundException, SQLException {
         return professorDAO.listar();
     }
 
-    public void atualizar(ProfessorDTO professorDTO) {
+    public void atualizar(ProfessorDTO professorDTO) throws ClassNotFoundException, SQLException {
         professorDAO.atualizar(professorDTO);
     }
 
-    public void deletar(int idProfessor) {
+    public void deletar(int idProfessor) throws ClassNotFoundException, SQLException {
         professorDAO.deletar(idProfessor);
     }
 }

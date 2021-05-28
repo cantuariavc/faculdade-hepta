@@ -14,7 +14,7 @@ import util.ConnectionFactory;
 
 public class ProfessorDAO {
 
-    public ProfessorDTO salvar(ProfessorDTO professorDTO) {
+    public ProfessorDTO salvar(ProfessorDTO professorDTO) throws ClassNotFoundException, SQLException {
         Professor professor = new Professor(professorDTO);
 
         try (Connection connection = ConnectionFactory.getConnection()) {
@@ -31,42 +31,34 @@ public class ProfessorDAO {
                     }
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            return null;
         }
 
         return new ProfessorDTO(professor);
     }
 
-    public List<ProfessorDTO> listar() {
+    public List<ProfessorDTO> listar() throws ClassNotFoundException, SQLException {
         List<ProfessorDTO> professores = new ArrayList<ProfessorDTO>();
 
-        try {
-            try (Connection connection = ConnectionFactory.getConnection()) {
-                String sql = "SELECT idProfessor, nomeCompleto FROM PROFESSOR";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT idProfessor, nomeCompleto FROM PROFESSOR";
 
-                try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                    pstm.execute();
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
 
-                    try (ResultSet rst = pstm.getResultSet()) {
-                        Professor professor;
-                        while (rst.next()) {
-                            professor = new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto"));
-                            professores.add(new ProfessorDTO(professor));
-                        }
+                try (ResultSet rst = pstm.getResultSet()) {
+                    Professor professor;
+                    while (rst.next()) {
+                        professor = new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto"));
+                        professores.add(new ProfessorDTO(professor));
                     }
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            return null;
         }
 
         return professores;
     }
 
-    public void atualizar(ProfessorDTO professorDTO) {
+    public void atualizar(ProfessorDTO professorDTO) throws ClassNotFoundException, SQLException {
         Professor professor = new Professor(professorDTO);
 
         try (Connection connection = ConnectionFactory.getConnection()) {
@@ -75,21 +67,16 @@ public class ProfessorDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
             }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
-
     }
 
-    public void deletar(int idProfessor) {
+    public void deletar(int idProfessor) throws ClassNotFoundException, SQLException {
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "DELETE FROM PROFESSOR WHERE idProfessor='" + idProfessor + "'";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
             }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
     }
 
