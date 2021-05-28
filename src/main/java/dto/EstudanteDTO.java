@@ -6,20 +6,22 @@ public class EstudanteDTO {
     private int idEstudante;
     private String nomeCompleto;
 
+    public EstudanteDTO() {
+    }
+
     public EstudanteDTO(int idEstudante, String nomeCompleto) {
         this.idEstudante = idEstudante;
         this.nomeCompleto = nomeCompleto;
     }
-    
+
     public EstudanteDTO(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
-    
+
     public EstudanteDTO(Estudante estudante) {
         this.idEstudante = estudante.getIdEstudante();
         this.nomeCompleto = estudante.getNomeCompleto();
     }
-
 
     public int getIdEstudante() {
         return idEstudante;

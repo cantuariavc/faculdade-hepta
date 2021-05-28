@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
@@ -48,6 +50,21 @@ public class EstudanteRest {
         };
 
         return Response.status(Status.OK).entity(entity).build();
+    }
+
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @POST
+    public Response salvar(EstudanteDTO estudanteDTO) {
+        try {
+            estudanteDTO = estudanteService.salvar(estudanteDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_criar_estudante").build();
+        }
+        
+        return Response.status(Status.OK).entity(estudanteDTO).build();
     }
 
 }
