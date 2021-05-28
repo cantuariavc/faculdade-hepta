@@ -37,19 +37,15 @@ class DisciplinaDAOTest {
     }
 
     @AfterAll
-    static void tearDownAfterClass() {
-        try {
-            for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
-                disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
-                professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+    static void tearDownAfterClass() throws ClassNotFoundException, SQLException {
+        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
+            disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
+            professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
         }
     }
 
     @Test
-    void testSalvar() {
+    void testSalvar() throws ClassNotFoundException, SQLException {
         for (DisciplinaDTO dDTO : listaDisciplinaDTO) {
             disciplinaDTO = disciplinaDAO.salvar(dDTO);
             assertNotNull(disciplinaDTO.getIdDisciplina());
@@ -58,7 +54,7 @@ class DisciplinaDAOTest {
     }
 
     @Test
-    void testListar() {
+    void testListar() throws ClassNotFoundException, SQLException {
         List<DisciplinaDTO> disciplinasDTOBD = disciplinaDAO.listar();
 
         for (DisciplinaDTO disciplinaDTO : disciplinasDTOBD) {
@@ -68,7 +64,7 @@ class DisciplinaDAOTest {
     }
 
     @Test
-    void testAtualizar() {
+    void testAtualizar() throws ClassNotFoundException, SQLException {
         disciplinaDTO = listaDisciplinaDTO.get(0);
         int idDisciplina = disciplinaDTO.getIdDisciplina();
         String nome = disciplinaDTO.getNome();
@@ -82,7 +78,7 @@ class DisciplinaDAOTest {
     }
 
     @Test
-    void testDeletar() {
+    void testDeletar() throws ClassNotFoundException, SQLException {
         for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO)
             disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
 
