@@ -39,7 +39,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testSalvar() throws SQLException {
+    void testSalvar() throws SQLException, ClassNotFoundException {
         for (EstudanteDTO eDTO : estudantesDTO) {
             estudanteDTO = estudanteDAO.salvar(eDTO);
             assertNotNull(estudanteDTO.getIdEstudante());
@@ -48,7 +48,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testListar() throws SQLException {
+    void testListar() throws SQLException, ClassNotFoundException {
         List<EstudanteDTO> estudantesDTOBD = estudanteDAO.listar();
 
         for (EstudanteDTO estudanteDTO : estudantesDTOBD) {
@@ -58,7 +58,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testAtualizar() throws SQLException {
+    void testAtualizar() throws SQLException, ClassNotFoundException {
         estudanteDTO = estudantesDTO.get(0);
         int idEstudante = estudanteDTO.getIdEstudante();
         String nomeCompleto = estudanteDTO.getNomeCompleto();
@@ -72,7 +72,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testDeletar() throws SQLException {
+    void testDeletar() throws SQLException, ClassNotFoundException {
         for (EstudanteDTO estudanteDTO : estudantesDTO)
             estudanteDAO.deletar(estudanteDTO.getIdEstudante());
 
