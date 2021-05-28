@@ -1,43 +1,40 @@
 package dto;
 
+import java.util.Arrays;
+
 import model.Disciplina;
 
 public class DisciplinaDTO {
     private int idDisciplina;
     private String nome;
-    private byte[] ementaArquivo;
-    private String ementaNomeArquivo;
-    private String ementaTipoArquivo;
+    private byte[] planoEnsinoArquivo;
     private ProfessorDTO professorDTO;
     
     public DisciplinaDTO() {
     }
 
-    public DisciplinaDTO(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo, 
-            String ementaTipoArquivo, ProfessorDTO professorDTO) {
+    public DisciplinaDTO(int idDisciplina, String nome, byte[] planoEnsinoArquivo, ProfessorDTO professorDTO) {
         this.idDisciplina = idDisciplina;
         this.nome = nome;
-        this.ementaArquivo = ementaArquivo;
-        this.ementaNomeArquivo = ementaNomeArquivo;
-        this.ementaTipoArquivo = ementaTipoArquivo;
+        this.planoEnsinoArquivo = planoEnsinoArquivo;
         this.professorDTO = professorDTO;
     }
 
-    public DisciplinaDTO(String nome, byte[] ementaArquivo, String ementaNomeArquivo, 
-            String ementaTipoArquivo, ProfessorDTO professorDTO) {
+    public DisciplinaDTO(String nome, ProfessorDTO professorDTO) {
         this.nome = nome;
-        this.ementaArquivo = ementaArquivo;
-        this.ementaNomeArquivo = ementaNomeArquivo;
-        this.ementaTipoArquivo = ementaTipoArquivo;
+        this.professorDTO = professorDTO;
+    }
+    
+    public DisciplinaDTO(String nome, byte[] planoEnsinoArquivo, ProfessorDTO professorDTO) {
+        this.nome = nome;
+        this.planoEnsinoArquivo = planoEnsinoArquivo;
         this.professorDTO = professorDTO;
     }
 
     public DisciplinaDTO(Disciplina disciplina) {
         this.idDisciplina = disciplina.getIdDisciplina();
         this.nome = disciplina.getNome();
-        this.ementaArquivo = disciplina.getEmentaArquivo();
-        this.ementaNomeArquivo = disciplina.getEmentaNomeArquivo();
-        this.ementaTipoArquivo = disciplina.getEmentaTipoArquivo();
+        this.planoEnsinoArquivo = disciplina.getPlanoEnsinoArquivo();
         this.professorDTO = new ProfessorDTO(disciplina.getProfessor());
     }
 
@@ -58,28 +55,12 @@ public class DisciplinaDTO {
         this.nome = nome;
     }
 
-    public byte[] getEmentaArquivo() {
-        return ementaArquivo;
+    public byte[] getPlanoEnsinoArquivo() {
+        return planoEnsinoArquivo;
     }
 
-    public void setEmentaArquivo(byte[] ementaArquivo) {
-        this.ementaArquivo = ementaArquivo;
-    }
-
-    public String getEmentaNomeArquivo() {
-        return ementaNomeArquivo;
-    }
-
-    public void setEmentaNomeArquivo(String ementaNomeArquivo) {
-        this.ementaNomeArquivo = ementaNomeArquivo;
-    }
-
-    public String getEmentaTipoArquivo() {
-        return ementaTipoArquivo;
-    }
-
-    public void setEmentaTipoArquivo(String ementaTipoArquivo) {
-        this.ementaTipoArquivo = ementaTipoArquivo;
+    public void setPlanoEnsinoArquivo(byte[] planoEnsinoArquivo) {
+        this.planoEnsinoArquivo = planoEnsinoArquivo;
     }
 
     public ProfessorDTO getProfessorDTO() {
@@ -92,9 +73,7 @@ public class DisciplinaDTO {
 
     @Override
     public String toString() {
-        return "DisciplinaDTO [idDisciplina=" + idDisciplina + ", nome=" + nome + ", ementaArquivo=" + ementaArquivo 
-                + ", ementaNomeArquivo=" + ementaNomeArquivo + ", ementaTipoArquivo=" + ementaTipoArquivo
-                + ", ProfessorDTO=" + professorDTO.getNomeCompleto() + "]";
+        return "DisciplinaDTO [idDisciplina=" + idDisciplina + ", nome=" + nome + ", planoEnsinoArquivo=" + Arrays.toString(planoEnsinoArquivo)
+                + ", professorDTO=" + professorDTO + "]";
     }
-
 }

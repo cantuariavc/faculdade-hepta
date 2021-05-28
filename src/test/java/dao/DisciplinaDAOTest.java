@@ -29,8 +29,8 @@ class DisciplinaDAOTest {
             ProfessorDTO professor2 = professorDAO.salvar(new ProfessorDTO("Isaac Newton"));
             listaProfessorDTO.add(professor2);
 
-            listaDisciplinaDTO.add(new DisciplinaDTO("EDA2", null, null, null, professor1));
-            listaDisciplinaDTO.add(new DisciplinaDTO("SBD2", null, null, null, professor2));
+            listaDisciplinaDTO.add(new DisciplinaDTO("EDA2", null, professor1));
+            listaDisciplinaDTO.add(new DisciplinaDTO("SBD2", null, professor2));
         } catch (Exception e) {
             System.out.println(e);
         }

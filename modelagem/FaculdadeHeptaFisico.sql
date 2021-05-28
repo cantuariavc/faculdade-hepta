@@ -24,9 +24,7 @@ CREATE TABLE PROFESSOR (
 CREATE TABLE DISCIPLINA (
     idDisciplina INTEGER(2) NOT NULL AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
-    ementaArquivo LONGBLOB,
-    ementaNomeArquivo VARCHAR(30),
-    ementaTipoArquivo VARCHAR(10),
+    planoEnsinoArquivo LONGBLOB,
     idProfessor INTEGER(2) NOT NULL,
     
     CONSTRAINT DISCIPLINA_PK
