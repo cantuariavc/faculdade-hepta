@@ -1,14 +1,15 @@
 package rest;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -27,12 +28,6 @@ public class EstudanteRest {
         estudanteService = new EstudanteService();
     }
 
-//    @Path("/")
-//    @Produces(MediaType.TEXT_PLAIN)
-//    @GET
-//    public String helloWorld() {
-//        return "Hello World";
-//    }
 
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -82,5 +77,18 @@ public class EstudanteRest {
 
         return Response.status(Status.OK).build();
     }
+    
+    @Path("/{idEstudante}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @DELETE
+    public Response deletar(@PathParam("idEstudante") Integer idEstudante) {
+        try {
+            estudanteService.deletar(idEstudante);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_deletar_estudante").build();
+        }
 
+        return Response.status(Status.OK).build();
+    }
 }
