@@ -9,6 +9,9 @@ public class DisciplinaDTO {
     private String ementaNomeArquivo;
     private String ementaTipoArquivo;
     private ProfessorDTO professorDTO;
+    
+    public DisciplinaDTO() {
+    }
 
     public DisciplinaDTO(int idDisciplina, String nome, byte[] ementaArquivo, String ementaNomeArquivo, 
             String ementaTipoArquivo, ProfessorDTO professorDTO) {
