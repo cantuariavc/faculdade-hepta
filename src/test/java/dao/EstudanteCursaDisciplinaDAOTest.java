@@ -26,34 +26,42 @@ class EstudanteCursaDisciplinaDAOTest {
     private static EstudanteCursaDisciplinaDAO cursaDAO = new EstudanteCursaDisciplinaDAO();
 
     @BeforeAll
-    static void setUpBeforeClass() throws Exception {
-        // TODO: verificar motivo para estudantes não estarem sendo salvos na lista.
-        listaEstudanteDTO.add(estudanteDAO.salvar(new EstudanteDTO("Elvis Presley")));
-        listaEstudanteDTO.add(estudanteDAO.salvar(new EstudanteDTO("Frank Sinatra")));
+    static void setUpBeforeClass() {
+        try {
+            // TODO: verificar motivo para estudantes não estarem sendo salvos na lista.
+            listaEstudanteDTO.add(estudanteDAO.salvar(new EstudanteDTO("Elvis Presley")));
+            listaEstudanteDTO.add(estudanteDAO.salvar(new EstudanteDTO("Frank Sinatra")));
 
-        ProfessorDTO professor1 = professorDAO.salvar(new ProfessorDTO("Albert Einstein"));
-        ProfessorDTO professor2 = professorDAO.salvar(new ProfessorDTO("Isaac Newton"));
+            ProfessorDTO professor1 = professorDAO.salvar(new ProfessorDTO("Albert Einstein"));
+            ProfessorDTO professor2 = professorDAO.salvar(new ProfessorDTO("Isaac Newton"));
 
-        listaDisciplinaDTO.add(disciplinaDAO.salvar(new DisciplinaDTO("EDA2", null, null, null, professor1)));
-        listaDisciplinaDTO.add(disciplinaDAO.salvar(new DisciplinaDTO("SBD2", null, null, null, professor2)));
+            listaDisciplinaDTO.add(disciplinaDAO.salvar(new DisciplinaDTO("EDA2", null, null, null, professor1)));
+            listaDisciplinaDTO.add(disciplinaDAO.salvar(new DisciplinaDTO("SBD2", null, null, null, professor2)));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @AfterAll
-    static void tearDownAfterClass() throws Exception {
-        for (EstudanteCursaDisciplinaDTO cursaDTO : listaCursaDTO)
-            cursaDAO.deletar(cursaDTO);
-        
-        for (EstudanteDTO estudanteDTO : listaEstudanteDTO)
-            estudanteDAO.deletar(estudanteDTO.getIdEstudante());
-        
-        for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
-            disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
-            professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
+    static void tearDownAfterClass() {
+        try {
+            for (EstudanteCursaDisciplinaDTO cursaDTO : listaCursaDTO)
+                cursaDAO.deletar(cursaDTO);
+
+            for (EstudanteDTO estudanteDTO : listaEstudanteDTO)
+                estudanteDAO.deletar(estudanteDTO.getIdEstudante());
+
+            for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
+                disciplinaDAO.deletar(disciplinaDTO.getIdDisciplina());
+                professorDAO.deletar(disciplinaDTO.getProfessorDTO().getIdProfessor());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     @Test
-    void testSalvaEstudanteCursaDisciplina() throws SQLException {
+    void testSalvaEstudanteCursaDisciplina() {
         for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
             for (EstudanteDTO estudanteDTO : listaEstudanteDTO) {
                 EstudanteCursaDisciplinaDTO cursaDTO = new EstudanteCursaDisciplinaDTO(estudanteDTO, disciplinaDTO);
@@ -65,7 +73,7 @@ class EstudanteCursaDisciplinaDAOTest {
     }
 
     @Test
-    void testListarEstudantes() throws SQLException {
+    void testListarEstudantes() {
         for (DisciplinaDTO disciplinaDTO : listaDisciplinaDTO) {
             listaEstudanteDTO = cursaDAO.listarEstudantes(disciplinaDTO.getIdDisciplina());
             for (EstudanteDTO estudanteDTO : listaEstudanteDTO) {
@@ -76,18 +84,17 @@ class EstudanteCursaDisciplinaDAOTest {
     }
 
     @Test
-    void testListarDisciplinas() throws SQLException {
+    void testListarDisciplinas() {
         List<DisciplinaDTO> disciplinasDTO;
         for (EstudanteDTO estudanteDTO : listaEstudanteDTO) {
             disciplinasDTO = cursaDAO.listarDisciplinas(estudanteDTO.getIdEstudante());
-            for (DisciplinaDTO disciplinaDTO : disciplinasDTO) {
+            for (DisciplinaDTO disciplinaDTO : disciplinasDTO)
                 assertNotNull(disciplinaDTO.getIdDisciplina());
-            }
         }
     }
 
     @Test
-    void testDeletar() throws SQLException {
+    void testDeletar() {
         for (EstudanteCursaDisciplinaDTO cursaDTO : listaCursaDTO)
             cursaDAO.deletar(cursaDTO);
     }
