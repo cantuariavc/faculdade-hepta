@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.EstudanteDAO;
@@ -13,19 +14,19 @@ public class EstudanteService {
         estudanteDAO = new EstudanteDAO();
     }
 
-    public EstudanteDTO salvar(EstudanteDTO estudanteDTO) {
+    public EstudanteDTO salvar(EstudanteDTO estudanteDTO) throws SQLException, ClassNotFoundException {
         return estudanteDAO.salvar(estudanteDTO);
     }
 
-    public List<EstudanteDTO> listar() {
+    public List<EstudanteDTO> listar() throws SQLException, ClassNotFoundException {
         return estudanteDAO.listar();
     }
 
-    public void atualizar(EstudanteDTO estudanteDTO) {
+    public void atualizar(EstudanteDTO estudanteDTO) throws SQLException, ClassNotFoundException {
         estudanteDAO.atualizar(estudanteDTO);
     }
 
-    public void deletar(int idEstudante) {
+    public void deletar(int idEstudante) throws SQLException, ClassNotFoundException {
         estudanteDAO.deletar(idEstudante);
     }
 

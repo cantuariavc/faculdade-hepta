@@ -14,89 +14,69 @@ import util.ConnectionFactory;
 
 public class EstudanteDAO {
 
-    public EstudanteDTO salvar(EstudanteDTO estudanteDTO) {
+    public EstudanteDTO salvar(EstudanteDTO estudanteDTO) throws SQLException, ClassNotFoundException {
         Estudante estudante = new Estudante(estudanteDTO);
-        try {
-            try (Connection connection = ConnectionFactory.getConnection()) {
-                String sql = "INSERT INTO ESTUDANTE(nomeCompleto) VALUES (?)";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "INSERT INTO ESTUDANTE(nomeCompleto) VALUES (?)";
 
-                try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                    pstm.setString(1, estudante.getNomeCompleto());
+            try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstm.setString(1, estudante.getNomeCompleto());
 
-                    pstm.execute();
+                pstm.execute();
 
-                    try (ResultSet rst = pstm.getGeneratedKeys()) {
-                        while (rst.next()) {
-                            estudante.setIdEstudante(rst.getInt(1));
-                        }
+                try (ResultSet rst = pstm.getGeneratedKeys()) {
+                    while (rst.next()) {
+                        estudante.setIdEstudante(rst.getInt(1));
                     }
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            return null;
         }
 
         return new EstudanteDTO(estudante);
     }
 
-    public List<EstudanteDTO> listar() {
+    public List<EstudanteDTO> listar() throws SQLException, ClassNotFoundException {
         List<EstudanteDTO> estudantes = new ArrayList<EstudanteDTO>();
 
-        try {
-            try (Connection connection = ConnectionFactory.getConnection()) {
-                String sql = "SELECT idEstudante, nomeCompleto FROM ESTUDANTE";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT idEstudante, nomeCompleto FROM ESTUDANTE";
 
-                try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                    pstm.execute();
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
 
-                    try (ResultSet rst = pstm.getResultSet()) {
-                        Estudante estudante;
-                        while (rst.next()) {
-                            estudante = new Estudante(rst.getInt("idEstudante"), rst.getString("nomeCompleto"));
-                            estudantes.add(new EstudanteDTO(estudante));
-                        }
+                try (ResultSet rst = pstm.getResultSet()) {
+                    Estudante estudante;
+                    while (rst.next()) {
+                        estudante = new Estudante(rst.getInt("idEstudante"), rst.getString("nomeCompleto"));
+                        estudantes.add(new EstudanteDTO(estudante));
                     }
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            return null;
         }
 
         return estudantes;
     }
 
-    public void atualizar(EstudanteDTO estudanteDTO) {
+    public void atualizar(EstudanteDTO estudanteDTO) throws SQLException, ClassNotFoundException {
         Estudante estudante = new Estudante(estudanteDTO);
 
-        try {
-            try (Connection connection = ConnectionFactory.getConnection()) {
-                String sql = "UPDATE ESTUDANTE SET nomeCompleto='" + estudante.getNomeCompleto() + "' " + "WHERE idEstudante='" + estudante.getIdEstudante()
-                        + "'";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "UPDATE ESTUDANTE SET nomeCompleto='" + estudante.getNomeCompleto() + "' " + "WHERE idEstudante='" + estudante.getIdEstudante() + "'";
 
-                try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                    pstm.execute();
-                }
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
             }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
     }
 
-    public void deletar(int idEstudante) {
-        try {
-            try (Connection connection = ConnectionFactory.getConnection()) {
-                String sql = "DELETE FROM ESTUDANTE WHERE idEstudante='" + idEstudante + "'";
+    public void deletar(int idEstudante) throws SQLException, ClassNotFoundException {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "DELETE FROM ESTUDANTE WHERE idEstudante='" + idEstudante + "'";
 
-                try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                    pstm.execute();
-                }
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
             }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
-
     }
 
 }

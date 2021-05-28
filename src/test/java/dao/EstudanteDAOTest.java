@@ -2,6 +2,7 @@ package dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testSalvar() {
+    void testSalvar() throws SQLException {
         for (EstudanteDTO eDTO : estudantesDTO) {
             estudanteDTO = estudanteDAO.salvar(eDTO);
             assertNotNull(estudanteDTO.getIdEstudante());
@@ -47,7 +48,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testListar() {
+    void testListar() throws SQLException {
         List<EstudanteDTO> estudantesDTOBD = estudanteDAO.listar();
 
         for (EstudanteDTO estudanteDTO : estudantesDTOBD) {
@@ -57,7 +58,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testAtualizar() {
+    void testAtualizar() throws SQLException {
         estudanteDTO = estudantesDTO.get(0);
         int idEstudante = estudanteDTO.getIdEstudante();
         String nomeCompleto = estudanteDTO.getNomeCompleto();
@@ -71,7 +72,7 @@ class EstudanteDAOTest {
     }
 
     @Test
-    void testDeletar() {
+    void testDeletar() throws SQLException {
         for (EstudanteDTO estudanteDTO : estudantesDTO)
             estudanteDAO.deletar(estudanteDTO.getIdEstudante());
 
