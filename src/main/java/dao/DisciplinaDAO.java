@@ -45,7 +45,8 @@ public class DisciplinaDAO {
 
         try (Connection connection = ConnectionFactory.getConnection()) {
             String sql = "SELECT d.idDisciplina, d.nome, d.planoEnsinoArquivo, d.planoEnsinoNome, " + "p.idProfessor, p.nomeCompleto "
-                    + "FROM faculdadeHepta.DISCIPLINA d " + "INNER JOIN faculdadeHepta.PROFESSOR p on d.idProfessor = p.idProfessor";
+                    + "FROM faculdadeHepta.DISCIPLINA d " + "INNER JOIN faculdadeHepta.PROFESSOR p on d.idProfessor = p.idProfessor "
+                    + "ORDER BY d.idDisciplina ASC";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
