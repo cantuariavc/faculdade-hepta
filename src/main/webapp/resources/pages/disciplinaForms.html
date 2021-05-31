@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Formulário Disciplina</title>
+<link rel="stylesheet" type="text/css" href="../css/disciplinaForms.css">
+</head>
+<body>
+<h1>Formulário de Disciplina</h1>
+
+<div>
+  <form action="/action_page.php">
+  	<div>
+    	<label for="fname">Nome da disciplina</label>
+    	<input type="text" id="fname" name="firstname">
+	</div>
+	<div>
+	    <label for="lname">Plano de ensino</label>
+	    <input type="file" accept="application/pdf" id="arquivo" name="planoEnsino">
+	</div>
+	<div>
+	    <label for="professor">Professor</label>
+	    <select id="professor" name="professor">
+	      <option value="australia">Australia</option>
+	      <option value="canada">Canada</option>
+	      <option value="usa">USA</option>
+	    </select>
+    </div>
+  
+  	<a href="http://localhost:8080/Faculdade-Hepta/index.html">Cancelar</a>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+</body>
+</html>
