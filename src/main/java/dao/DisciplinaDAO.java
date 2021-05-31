@@ -19,19 +19,19 @@ public class DisciplinaDAO {
         Disciplina disciplina = new Disciplina(disciplinaDTO);
 
         try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "INSERT INTO DISCIPLINA(nome, planoEnsinoArquivo, idProfessor) " + "VALUES (?, ?, ?)";
+            String sql = "INSERT INTO DISCIPLINA(nome, planoEnsinoArquivo, planoEnsinoNome, idProfessor) " + "VALUES (?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 pstm.setString(1, disciplina.getNome());
                 pstm.setBytes(2, disciplina.getPlanoEnsinoArquivo());
-                pstm.setInt(3, disciplina.getProfessor().getIdProfessor());
+                pstm.setString(3, disciplina.getPlanoEnsinoNome());
+                pstm.setInt(4, disciplina.getProfessor().getIdProfessor());
 
                 pstm.execute();
 
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
-                    while (rst.next()) {
+                    while (rst.next())
                         disciplina.setIdDisciplina(rst.getInt(1));
-                    }
                 }
             }
         }
@@ -44,7 +44,7 @@ public class DisciplinaDAO {
         List<DisciplinaDTO> disciplinas = new ArrayList<DisciplinaDTO>();
 
         try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "SELECT d.idDisciplina, d.nome, d.planoEnsinoArquivo, " + "p.idProfessor, p.nomeCompleto "
+            String sql = "SELECT d.idDisciplina, d.nome, d.planoEnsinoArquivo, d.planoEnsinoNome, " + "p.idProfessor, p.nomeCompleto "
                     + "FROM faculdadeHepta.DISCIPLINA d " + "INNER JOIN faculdadeHepta.PROFESSOR p on d.idProfessor = p.idProfessor";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
@@ -54,7 +54,7 @@ public class DisciplinaDAO {
                     Disciplina disciplina;
                     while (rst.next()) {
                         disciplina = new Disciplina(rst.getInt("idDisciplina"), rst.getString("nome"), rst.getBytes("planoEnsinoArquivo"),
-                                new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto")));
+                                rst.getString("planoEnsinoNome"), new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto")));
 
                         disciplinas.add(new DisciplinaDTO(disciplina));
                     }
@@ -69,8 +69,9 @@ public class DisciplinaDAO {
         Disciplina disciplina = new Disciplina(disciplinaDTO);
 
         try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "UPDATE DISCIPLINA " + "SET nome='" + disciplina.getNome() + "', " + "planoEnsinoArquivo='" + disciplina.getPlanoEnsinoArquivo() + "', "
-                    + "idProfessor='" + disciplina.getProfessor().getIdProfessor() + "' " + "WHERE idDisciplina='" + disciplina.getIdDisciplina() + "'";
+            String sql = "UPDATE DISCIPLINA SET nome='" + disciplina.getNome() + "', planoEnsinoArquivo='" + disciplina.getPlanoEnsinoArquivo()
+                    + "', planoEnsinoNome='" + disciplina.getPlanoEnsinoNome() + "', idProfessor='" + disciplina.getProfessor().getIdProfessor()
+                    + "' WHERE idDisciplina='" + disciplina.getIdDisciplina() + "'";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();

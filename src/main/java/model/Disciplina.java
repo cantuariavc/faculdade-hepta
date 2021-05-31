@@ -1,19 +1,19 @@
 package model;
 
-import java.util.Arrays;
-
 import dto.DisciplinaDTO;
 
 public class Disciplina {
     private int idDisciplina;
     private String nome;
     private byte[] planoEnsinoArquivo;
+    private String planoEnsinoNome;
     private Professor professor;
 
-    public Disciplina(int idDisciplina, String nome, byte[] planoEnsinoArquivo, Professor professor) {
+    public Disciplina(int idDisciplina, String nome, byte[] planoEnsinoArquivo, String planoEnsinoNome, Professor professor) {
         this.idDisciplina = idDisciplina;
         this.nome = nome;
         this.planoEnsinoArquivo = planoEnsinoArquivo;
+        this.planoEnsinoNome = planoEnsinoNome;
         this.professor = professor;
     }
 
@@ -21,6 +21,7 @@ public class Disciplina {
         this.idDisciplina = disciplinaDTO.getIdDisciplina();
         this.nome = disciplinaDTO.getNome();
         this.planoEnsinoArquivo = disciplinaDTO.getPlanoEnsinoArquivo();
+        this.planoEnsinoNome = disciplinaDTO.getPlanoEnsinoNome();
         this.professor = new Professor(disciplinaDTO.getProfessorDTO());
     }
 
@@ -48,6 +49,14 @@ public class Disciplina {
         this.planoEnsinoArquivo = planoEnsinoArquivo;
     }
 
+    public String getPlanoEnsinoNome() {
+        return planoEnsinoNome;
+    }
+
+    public void setPlanoEnsinoNome(String planoEnsinoNome) {
+        this.planoEnsinoNome = planoEnsinoNome;
+    }
+
     public Professor getProfessor() {
         return professor;
     }
@@ -58,8 +67,6 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return "Disciplina [idDisciplina=" + idDisciplina + ", nome=" + nome + ", planoEnsinoArquivo=" + Arrays.toString(planoEnsinoArquivo) + ", professor="
-                + professor + "]";
+        return "Disciplina [idDisciplina=" + idDisciplina + ", nome=" + nome + ", planoEnsinoNome=" + planoEnsinoNome + ", professor=" + professor + "]";
     }
-
 }
