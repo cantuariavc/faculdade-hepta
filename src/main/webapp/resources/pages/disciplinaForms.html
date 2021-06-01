@@ -9,18 +9,18 @@
 	<h1>Formulário de Disciplina</h1>
 	
 	<div>
-	  <form action="/action_page.php">
+	  <form id="disciplinaForm">
 	  	<div>
 	    	<label for="fname">Nome da disciplina</label>
-	    	<input type="text" id="fname" name="firstname">
+	    	<input type="text" id="nomeDisciplina" name="nomeDisciplina">
 		</div>
 		<div>
 		    <label for="lname">Plano de ensino</label>
-		    <input type="file" accept="application/pdf" id="arquivo" name="planoEnsino">
+		    <input type="file" accept="application/pdf" id="planoEnsinoArquivo" name="planoEnsinoArquivo">
 		</div>
 		<div>
 		    <label for="professor">Professor</label>
-		    <select id="professoresSelect" name="professor"></select>
+		    <select id="professores" name="professor"></select>
 	    </div>
 	  
 	  	<a href="http://localhost:8080/Faculdade-Hepta/index.html">Cancelar</a>
