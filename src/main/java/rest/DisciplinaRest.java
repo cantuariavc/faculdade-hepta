@@ -59,9 +59,7 @@ public class DisciplinaRest {
     public Response salvar(@FormDataParam("disciplina") FormDataBodyPart disciplinaForm, @FormDataParam("arquivo") File arquivo) {
         DisciplinaDTO disciplinaDTO;
         
-        System.out.println("teste");
-        try {
-            
+        try {            
             disciplinaForm.setMediaType(MediaType.APPLICATION_JSON_TYPE);
             disciplinaDTO = disciplinaForm.getValueAs(DisciplinaDTO.class);
             disciplinaService.salvar(disciplinaDTO, arquivo);
