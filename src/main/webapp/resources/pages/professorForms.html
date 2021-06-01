@@ -3,11 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Formulário Professor</title>
+<link rel="stylesheet" type="text/css" href="../css/professorForms.css">
 </head>
 <body>
-	<form action="/action_page.php" method="get">
-		<label for="fname">Nome:</label> <input type="text" id="fname" name="fname"><br><br>
-		<input type="submit" value="Submit">
-	</form>
+	<h1>Formulário de Professor</h1>
+	<div>
+		<form id="professorForm">
+			<div>
+				<label for="fname">Nome:</label>
+				<input type="text" id="nomeCompleto" name="nomeCompleto"><br><br>
+			</div>
+			
+			<a href="http://localhost:8080/Faculdade-Hepta/index.html">Cancelar</a>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+	
+	<script src="../js/professorForms.js"></script>
 </body>
 </html>
