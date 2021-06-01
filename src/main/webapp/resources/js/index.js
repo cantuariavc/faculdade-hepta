@@ -6,69 +6,71 @@ window.onload = () => {
 			data.forEach(disciplina => {
 				var tr = document.createElement('tr');
 
-				tr.appendChild(createIdCol(disciplina));
-				tr.appendChild(createNomeCol(disciplina));
-				tr.appendChild(createPlanoEnsinoCol(disciplina));
-				tr.appendChild(createProfessorCol(disciplina));
-				tr.appendChild(createEditarCol());
-				tr.appendChild(createExcluirCol());
+				tr.appendChild(createIdCol(disciplina.idDisciplina));
+				tr.appendChild(createNomeCol(disciplina.nome));
+				tr.appendChild(createPlanoEnsinoCol(disciplina.planoEnsinoNome, disciplina.planoEnsinoArquivo));
+				tr.appendChild(createProfessorCol(disciplina.professorDTO.nomeCompleto));
+				tr.appendChild(createEditarCol(disciplina.idDisciplina));
+				tr.appendChild(createExcluirCol(disciplina.idDisciplina));
 
 				tableBody.appendChild(tr);
 			});
 		});
 }
 
-function createIdCol(disciplina) {
-	var id = document.createElement('td');
-	id.appendChild(document.createTextNode(disciplina.idDisciplina));
+function createIdCol(id) {
+	var idTD = document.createElement('td');
+	idTD.appendChild(document.createTextNode(id));
 
-	return id;
+	return idTD;
 }
 
-function createNomeCol(disciplina) {
-	var nome = document.createElement('td');
-	nome.appendChild(document.createTextNode(disciplina.nome));
+function createNomeCol(nome) {
+	var nomeTD = document.createElement('td');
+	nomeTD.appendChild(document.createTextNode(nome));
 
-	return nome;
+	return nomeTD;
 }
 
-function createPlanoEnsinoCol(disciplina) {
-	var planoEnsino = document.createElement('td');
-	var planoEnsinoNome = document.createElement('a');
-	if (disciplina.planoEnsinoNome) {
-		var nomeArquivo = `${disciplina.planoEnsinoNome}.pdf`;
-		planoEnsinoNome.appendChild(document.createTextNode(nomeArquivo));
-		planoEnsinoNome.setAttribute('href', `data:application/pdf;base64,${disciplina.planoEnsinoArquivo}`);
-		planoEnsinoNome.setAttribute('download', nomeArquivo);
+function createPlanoEnsinoCol(nomePlanoEnsino, arquivoPlanoEnsino) {
+	var planoEnsinoTD = document.createElement('td');
+	var planoEnsinoNomeA = document.createElement('a');
+	if (nomePlanoEnsino) {
+		var nomeArquivo = `${nomePlanoEnsino}.pdf`;
+		planoEnsinoNomeA.appendChild(document.createTextNode(nomeArquivo));
+		planoEnsinoNomeA.setAttribute('href', `data:application/pdf;base64,${arquivoPlanoEnsino}`);
+		planoEnsinoNomeA.setAttribute('download', nomeArquivo);
 	} else {
-		planoEnsinoNome.appendChild(document.createTextNode(''));
+		planoEnsinoNomeA.appendChild(document.createTextNode(''));
 	}
-	planoEnsino.appendChild(planoEnsinoNome);
+	planoEnsinoTD.appendChild(planoEnsinoNomeA);
 
-	return planoEnsino;
+	return planoEnsinoTD;
 }
 
-function createProfessorCol(disciplina) {
-	var professor = document.createElement('td');
-	professor.appendChild(document.createTextNode(disciplina.professorDTO.nomeCompleto));
+function createProfessorCol(nomeCompleto) {
+	var professorTD = document.createElement('td');
+	professorTD.appendChild(document.createTextNode(nomeCompleto));
 
-	return professor;
+	return professorTD;
 }
 
-function createEditarCol() {
+function createEditarCol(id) {
 	var editarTD = document.createElement('td');
-	var editar = document.createElement('span');
-	editar.appendChild(document.createTextNode('editar'));
-	editarTD.appendChild(editar);
+	var editarA = document.createElement('a');
+	editarA.setAttribute('href', `http://localhost:8080/Faculdade-Hepta/resources/pages/disciplinaForms.html?id=${id}`);
+	editarA.appendChild(document.createTextNode('editar'));
+
+	editarTD.appendChild(editarA);
 
 	return editarTD;
 }
 
-function createExcluirCol() {
+function createExcluirCol(id) {
 	var excluirTD = document.createElement('td');
-	var excluir = document.createElement('span');
-	excluir.appendChild(document.createTextNode('excluir'));
-	excluirTD.appendChild(excluir);
+	var excluirA = document.createElement('a');
+	excluirA.appendChild(document.createTextNode('excluir'));
+	excluirTD.appendChild(excluirA);
 
 	return excluirTD;
 }

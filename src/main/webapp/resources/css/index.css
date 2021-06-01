@@ -3,6 +3,16 @@ h1 {
   font-family: arial;
 }
 
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0px 50px;  
+}
+
+.button {
+  margin: 10px;
+}
+
 table {
   margin-left: auto;
   margin-right: auto;
@@ -21,6 +31,6 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-span {
+/* span {
   cursor: pointer;
-}
+} */
