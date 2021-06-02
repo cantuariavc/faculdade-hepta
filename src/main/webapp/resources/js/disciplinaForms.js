@@ -21,7 +21,6 @@ function getDisciplina() {
 			NOME_DISCIPLINA.value = disciplina.nome;
 			PROFESSORES.value = disciplina.professorDTO.idProfessor;
 
-			console.log(disciplina);
 			var list = new DataTransfer();
 			list.items.add(dataURLtoFile(`data:application/pdf;base64,${disciplina.planoEnsinoArquivo}`, `${disciplina.planoEnsinoNome}.pdf`));
 			document.getElementById('planoEnsinoArquivo').files = list.files;

@@ -1,14 +1,33 @@
+const ID = getUrlParam('id');
+
+window.onload = () => {
+	if (ID) getProfessor();
+}
+
+function getUrlParam(name) {
+	var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	return (results && results[1]) || undefined;
+}
+
+function getProfessor() {
+	fetch(`http://localhost:8080/Faculdade-Hepta/rest/professores/${ID}`)
+		.then(res => res.json())
+		.then(professor => document.getElementById('nomeCompleto').value = professor.nomeCompleto);
+}
+
 document.getElementById('professorForm').addEventListener('submit', event => {
 	event.preventDefault();
-
-	var professor = {};
-
 	var nomeCompleto = document.getElementById('nomeCompleto').value;
-	if (nomeCompleto) professor.nomeCompleto = nomeCompleto;
-	else return
+	if (!nomeCompleto) return
+
+	var professor = {
+		idProfessor: ID,
+		nomeCompleto
+	};
+
 
 	fetch("http://localhost:8080/Faculdade-Hepta/rest/professores/", {
-		method: "POST",
+		method: ID ? "PUT" : "POST",
 		headers: new Headers({ 'Content-Type': 'application/json' }),
 		body: JSON.stringify(professor)
 	})

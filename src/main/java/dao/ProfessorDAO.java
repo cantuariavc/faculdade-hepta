@@ -8,7 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.DisciplinaDTO;
 import dto.ProfessorDTO;
+import model.Disciplina;
 import model.Professor;
 import util.ConnectionFactory;
 
@@ -78,6 +80,26 @@ public class ProfessorDAO {
                 pstm.execute();
             }
         }
+    }
+    
+    public ProfessorDTO detalhar(int idDisciplina) throws ClassNotFoundException, SQLException {
+        Professor professor = null;
+        
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT idProfessor, nomeCompleto FROM PROFESSOR WHERE idprofessor=" + idDisciplina;
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
+
+                try (ResultSet rst = pstm.getResultSet()) {
+                    while (rst.next()) {
+                        professor = new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto"));
+                    }
+                }
+            }
+        }
+        
+        return new ProfessorDTO(professor);
     }
 
 }

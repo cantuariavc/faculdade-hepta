@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import dto.DisciplinaDTO;
 import dto.ProfessorDTO;
 import service.ProfessorService;
 
@@ -90,5 +91,21 @@ public class ProfessorRest {
         }
 
         return Response.status(Status.OK).build();
+    }
+    
+    @Path("/{idProfessor}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response detalhar(@PathParam("idProfessor") Integer idProfessor) {
+        ProfessorDTO professorDTO;
+        
+        try {
+            professorDTO = professorService.detalhar(idProfessor);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_detalhar_professor").build();
+        }
+
+        return Response.status(Status.OK).entity(professorDTO).build();
     }
 }
