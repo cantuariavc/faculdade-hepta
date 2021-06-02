@@ -103,4 +103,20 @@ public class DisciplinaRest {
 
         return Response.status(Status.OK).build();
     }
+    
+    @Path("/{idDisciplina}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response detalhar(@PathParam("idDisciplina") Integer idDisciplina) {
+        DisciplinaDTO disciplinaDTO;
+        
+        try {
+            disciplinaDTO = disciplinaService.detalhar(idDisciplina);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro_ao_detalhar_disciplina").build();
+        }
+
+        return Response.status(Status.OK).entity(disciplinaDTO).build();
+    }
 }

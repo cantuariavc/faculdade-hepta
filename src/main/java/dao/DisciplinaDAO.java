@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.DisciplinaDTO;
+import dto.ProfessorDTO;
 import model.Disciplina;
 import model.Professor;
 import util.ConnectionFactory;
@@ -89,6 +90,29 @@ public class DisciplinaDAO {
                 pstm.execute();
             }
         }
+    }
+
+    public DisciplinaDTO detalhar(int idDisciplina) throws ClassNotFoundException, SQLException {
+        Disciplina disciplina = null;
+        
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "SELECT d.idDisciplina, d.nome, d.planoEnsinoArquivo, d.planoEnsinoNome, p.idProfessor, p.nomeCompleto FROM DISCIPLINA d "
+                    + "INNER JOIN PROFESSOR p ON p.idProfessor=d.idProfessor WHERE idDisciplina=" + idDisciplina;
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
+
+                try (ResultSet rst = pstm.getResultSet()) {
+                    while (rst.next()) {
+                        disciplina = new Disciplina(rst.getInt("idDisciplina"), rst.getString("nome"), rst.getBytes("planoEnsinoArquivo"),
+                                rst.getString("planoEnsinoNome"), new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto")));
+                        System.out.println(disciplina);
+                    }
+                }
+            }
+        }
+        
+        return new DisciplinaDTO(disciplina);
     }
 
 }

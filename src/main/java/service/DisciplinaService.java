@@ -35,4 +35,9 @@ public class DisciplinaService {
     public void deletar(int idDisciplina) throws ClassNotFoundException, SQLException {
         disciplinaDAO.deletar(idDisciplina);
     }
+    
+    public DisciplinaDTO detalhar(int idDisciplina) throws ClassNotFoundException, SQLException {
+        return disciplinaDAO.detalhar(idDisciplina);
+    }
+    
 }
