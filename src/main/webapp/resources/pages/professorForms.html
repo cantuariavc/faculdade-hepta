@@ -6,19 +6,20 @@
 <link rel="stylesheet" type="text/css" href="../css/professorForms.css">
 </head>
 <body>
-	<h1>Formulário de Professor</h1>
-	<div>
-		<form id="professorForm">
-			<div>
-				<label for="fname">Nome:</label>
-				<input type="text" id="nomeCompleto" name="nomeCompleto"><br><br>
-			</div>
-			
-			<a href="http://localhost:8080/Faculdade-Hepta/index.html">Cancelar</a>
-			<input type="submit" value="Submit">
-		</form>
-	</div>
-	
-	<script src="../js/professorForms.js"></script>
+  <h1>Formulário de Professor</h1>
+  <div>
+    <form id="professorForm">
+      <div>
+        <label for="fname">Nome:</label>
+        <input type="text" id="nomeCompleto" name="nomeCompleto"><br> <br>
+      </div>
+
+      <!-- <button id="deletarProfessor" onclick="deletarProfessor()">Deletar</button> -->
+      <button onclick="location.href='http://localhost:8080/Faculdade-Hepta/index.html'">Cancelar</button>
+      <button type="submit" value="Salvar">Salvar</button>
+    </form>
+  </div>
+
+  <script src="../js/professorForms.js"></script>
 </body>
 </html>

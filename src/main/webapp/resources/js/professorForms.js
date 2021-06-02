@@ -1,7 +1,10 @@
 const ID = getUrlParam('id');
 
 window.onload = () => {
-	if (ID) getProfessor();
+	if (ID)
+		getProfessor();
+	//else
+	//	document.getElementById('deletarProfessor').style.visibility = 'hidden';
 }
 
 function getUrlParam(name) {
@@ -40,3 +43,15 @@ document.getElementById('professorForm').addEventListener('submit', event => {
 		});
 });
 
+//function deletarProfessor() {
+//	fetch(`http://localhost:8080/Faculdade-Hepta/rest/professores/${ID}`, {
+//		method: "DELETE"
+//	})
+//		.then((res) => {
+//			if (res.status === 200) window.location.href = "http://localhost:8080/Faculdade-Hepta/index.html";
+//		})
+//		.catch((err) => {
+//			window.location.href = `http://localhost:8080/Faculdade-Hepta/resources/pages/professorForms.html?id=${ID}`;
+//			console.log(err);
+//		});
+//}
