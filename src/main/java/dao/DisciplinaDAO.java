@@ -106,7 +106,6 @@ public class DisciplinaDAO {
                     while (rst.next()) {
                         disciplina = new Disciplina(rst.getInt("idDisciplina"), rst.getString("nome"), rst.getBytes("planoEnsinoArquivo"),
                                 rst.getString("planoEnsinoNome"), new Professor(rst.getInt("idProfessor"), rst.getString("nomeCompleto")));
-                        System.out.println(disciplina);
                     }
                 }
             }

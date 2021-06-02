@@ -13,7 +13,7 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-a {
+input[type=submit], a {
   width: 40%;
   background-color: #4CAF50;
   color: white;
@@ -22,21 +22,6 @@ a {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-input[type=submit] {
-  width: 40%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
 }
 
 form {
