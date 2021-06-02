@@ -6,28 +6,24 @@
 <link rel="stylesheet" type="text/css" href="../css/disciplinaForms.css">
 </head>
 <body>
-	<h1>Formulário de Disciplina</h1>
-	
-	<div>
-	  <form id="disciplinaForm">
-	  	<div>
-	    	<label for="fname">Nome da disciplina</label>
-	    	<input type="text" id="nomeDisciplina" name="nomeDisciplina">
-		</div>
-		<div>
-		    <label for="lname">Plano de ensino</label>
-		    <input type="file" accept="application/pdf" id="planoEnsinoArquivo" name="planoEnsinoArquivo">
-		</div>
-		<div>
-		    <label for="professor">Professor</label>
-		    <select id="professores" name="professor"></select>
-	    </div>
-	  
-	  	<a href="http://localhost:8080/Faculdade-Hepta/index.html">Cancelar</a>
-	    <input type="submit" value="Submit">
-	  </form>
-	</div>
-	
-	<script src="../js/disciplinaForms.js"></script>
+  <h1>Formulário de Disciplina</h1>
+  <form id="disciplinaForm">
+    <div>
+      <label for="fname">Nome da disciplina</label>
+      <input type="text" id="nomeDisciplina" name="nomeDisciplina">
+    </div>
+    <div>
+      <label for="lname">Plano de ensino</label>
+      <input type="file" accept="application/pdf" id="planoEnsinoArquivo" name="planoEnsinoArquivo">
+    </div>
+    <div>
+      <label for="professor">Professor</label>
+      <select id="professores" name="professor"></select>
+    </div>
+    <button id="deletarDisciplina" onclick="deletarDisciplina()">Deletar</button>
+    <button onclick="location.href='http://localhost:8080/Faculdade-Hepta/index.html'">Cancelar</button>
+    <button type="submit" value="Salvar">Salvar</button>
+  </form>
+  <script src="../js/disciplinaForms.js"></script>
 </body>
 </html>

@@ -33,3 +33,9 @@ form {
   background-color: #f2f2f2;
   padding: 20px;
 }
+
+rigth-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0px 50px;
+}

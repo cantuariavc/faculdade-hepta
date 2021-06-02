@@ -10,7 +10,6 @@ window.onload = () => {
 				tr.appendChild(createNomeCol(disciplina.idDisciplina, disciplina.nome));
 				tr.appendChild(createPlanoEnsinoCol(disciplina.planoEnsinoNome, disciplina.planoEnsinoArquivo));
 				tr.appendChild(createProfessorCol(disciplina.professorDTO.idProfessor, disciplina.professorDTO.nomeCompleto));
-				tr.appendChild(createExcluirCol(disciplina.idDisciplina));
 
 				tableBody.appendChild(tr);
 			});
@@ -28,7 +27,7 @@ function createNomeCol(idDisciplina, nome) {
 	var nomeTD = document.createElement('td');
 	var nomeA = document.createElement('a');
 	nomeA.appendChild(document.createTextNode(nome));
-	nomeA.setAttribute('href', `http://localhost:8080/Faculdade-Hepta/resources/pages/disciplinaForms.html?id=${idDisciplina}`);	
+	nomeA.setAttribute('href', `http://localhost:8080/Faculdade-Hepta/resources/pages/disciplinaForms.html?id=${idDisciplina}`);
 	nomeTD.appendChild(nomeA);
 
 	return nomeTD;
@@ -59,13 +58,3 @@ function createProfessorCol(idProfessor, nomeCompleto) {
 
 	return professorTD;
 }
-
-function createExcluirCol(id) {
-	var excluirTD = document.createElement('td');
-	var excluirA = document.createElement('a');
-	excluirA.appendChild(document.createTextNode('excluir'));
-	excluirTD.appendChild(excluirA);
-
-	return excluirTD;
-}
-

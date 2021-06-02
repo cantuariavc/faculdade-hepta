@@ -6,7 +6,11 @@ const ID = getUrlParam('id');
 window.onload = () => {
 	getProfessores();
 
-	if (ID) getDisciplina();
+	if (ID) {
+		getDisciplina();
+	} else {
+		document.getElementById('deletarDisciplina').style.visibility = 'hidden';
+	}
 }
 
 function getUrlParam(name) {
@@ -60,10 +64,10 @@ document.getElementById('disciplinaForm').addEventListener('submit', event => {
 
 	const PLANO_ENSINO_ARQUIVO = document.getElementById('planoEnsinoArquivo').files;
 	const formData = new FormData();
-	
+
 	var arquivo = PLANO_ENSINO_ARQUIVO.length !== 0 ? PLANO_ENSINO_ARQUIVO[0] : null;
 	formData.append("arquivo", arquivo);
-	
+
 	var disciplina = {
 		idDisciplina: ID ? ID : null,
 		nome: NOME_DISCIPLINA.value,
@@ -73,7 +77,7 @@ document.getElementById('disciplinaForm').addEventListener('submit', event => {
 		}
 	};
 	formData.append("disciplina", JSON.stringify(disciplina));
-	
+
 	fetch("http://localhost:8080/Faculdade-Hepta/rest/disciplinas/", {
 		method: ID ? "PUT" : "POST",
 		body: formData
@@ -82,8 +86,21 @@ document.getElementById('disciplinaForm').addEventListener('submit', event => {
 			if (res.status === 200) window.location.href = "http://localhost:8080/Faculdade-Hepta/index.html";
 		})
 		.catch((err) => {
-			window.location.href = "http://localhost:8080/Faculdade-Hepta/resources/pages/disciplinaForms.html";
+			var url = "http://localhost:8080/Faculdade-Hepta/resources/pages/disciplinaForms.html";
+			window.location.href = ID ? `${url}?id=${ID}` : url;
 			console.log(err);
 		});
 });
 
+function deletarDisciplina() {
+	fetch(`http://localhost:8080/Faculdade-Hepta/rest/disciplinas/${ID}`, {
+		method: "DELETE"
+	})
+		.then((res) => {
+			if (res.status === 200) window.location.href = "http://localhost:8080/Faculdade-Hepta/index.html";
+		})
+		.catch((err) => {
+			window.location.href = `http://localhost:8080/Faculdade-Hepta/resources/pages/disciplinaForms.html?id=${ID}`;
+			console.log(err);
+		});
+}
