@@ -1,5 +1,4 @@
 const NOME_DISCIPLINA = document.getElementById('nomeDisciplina');
-const PLANO_ENSINO_ARQUIVO = document.getElementById('planoEnsinoArquivo');
 const PROFESSORES = document.getElementById('professores');
 
 const ID = getUrlParam('id');
@@ -7,9 +6,7 @@ const ID = getUrlParam('id');
 window.onload = () => {
 	getProfessores();
 
-	if (ID)
-		getDisciplina();
-
+	if (ID) getDisciplina();
 }
 
 function getUrlParam(name) {
@@ -24,9 +21,10 @@ function getDisciplina() {
 			NOME_DISCIPLINA.value = disciplina.nome;
 			PROFESSORES.value = disciplina.professorDTO.idProfessor;
 
+			console.log(disciplina);
 			var list = new DataTransfer();
 			list.items.add(dataURLtoFile(`data:application/pdf;base64,${disciplina.planoEnsinoArquivo}`, `${disciplina.planoEnsinoNome}.pdf`));
-			PLANO_ENSINO_ARQUIVO.files = list.files;
+			document.getElementById('planoEnsinoArquivo').files = list.files;
 		});
 }
 
@@ -37,8 +35,7 @@ function dataURLtoFile(dataurl, filename) {
 	var n = bstr.length;
 	var u8arr = new Uint8Array(n);
 
-	while (n--)
-		u8arr[n] = bstr.charCodeAt(n);
+	while (n--) u8arr[n] = bstr.charCodeAt(n);
 
 	return new File([u8arr], filename, { type: mime });
 }
@@ -60,44 +57,26 @@ function getProfessores() {
 
 document.getElementById('disciplinaForm').addEventListener('submit', event => {
 	event.preventDefault();
+	if (!NOME_DISCIPLINA.value) return;
 
-	var disciplina = {
-		professorDTO: {}
-	};
-	var arquivo = null;
-
-
-	if (NOME_DISCIPLINA.value)
-		disciplina.nome = NOME_DISCIPLINA.value;
-	else
-		return;
-
-	if (ID)
-		disciplina.idDisciplina = ID;
-
-	if (PLANO_ENSINO_ARQUIVO.files.length !== 0) {
-		arquivo = PLANO_ENSINO_ARQUIVO.files[0];
-		disciplina.planoEnsinoNome = arquivo.name.split('.')[0];
-	} else {
-		arquivo = null;
-		disciplina.planoEnsinoNome = null;
-	}
-
-	disciplina.professorDTO.idProfessor = PROFESSORES.value;
-
-
+	const PLANO_ENSINO_ARQUIVO = document.getElementById('planoEnsinoArquivo').files;
 	const formData = new FormData();
-	formData.append("disciplina", JSON.stringify(disciplina));
+	
+	var arquivo = PLANO_ENSINO_ARQUIVO.length !== 0 ? PLANO_ENSINO_ARQUIVO[0] : null;
 	formData.append("arquivo", arquivo);
-
-
-	if (ID)
-		var method = "PUT";
-	else
-		var method = "POST"
-
+	
+	var disciplina = {
+		idDisciplina: ID ? ID : null,
+		nome: NOME_DISCIPLINA.value,
+		planoEnsinoNome: PLANO_ENSINO_ARQUIVO.length !== 0 ? arquivo.name.split('.')[0] : null,
+		professorDTO: {
+			idProfessor: PROFESSORES.value
+		}
+	};
+	formData.append("disciplina", JSON.stringify(disciplina));
+	
 	fetch("http://localhost:8080/Faculdade-Hepta/rest/disciplinas/", {
-		method,
+		method: ID ? "PUT" : "POST",
 		body: formData
 	})
 		.then((res) => {
